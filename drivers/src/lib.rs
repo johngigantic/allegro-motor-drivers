@@ -1,3 +1,9 @@
+//! Embedded systems drivers for Allegro Microsystems motor controller integrated circuits
+
+pub mod a49xx;
+pub mod amt49xxx;
+
+
 pub fn add(left: usize, right: usize) -> usize {
     left + right
 }

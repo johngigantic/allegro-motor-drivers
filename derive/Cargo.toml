@@ -20,7 +20,9 @@ categories = ["no-std", "embedded", "hardware-support", "science::robotics"]
 proc-macro = true
 
 [dependencies]
-bilge = "0.2.0"
 proc-macro2 = "1.0.69"
 quote = "1.0.33"
 syn = "2.0.38"
+
+[dev-dependencies]
+bilge = "0.2.0"

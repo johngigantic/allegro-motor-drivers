@@ -70,7 +70,7 @@ impl Default for VdsThreshold {
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config0 {
     pub dt: DeadTime,
-    pub bd: FaultBlankingTime,
+    pub bt: FaultBlankingTime,
 }
 
 #[bitsize(13)]

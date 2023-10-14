@@ -93,20 +93,7 @@ jobs:
       - uses: dtolnay/rust-toolchain@nightly
       - uses: dtolnay/install@cargo-docs-rs
       - run: cargo docs-rs
-      - run: cargo docs-rs --manifest-path json/Cargo.toml
       - run: cargo test --all-features --doc
-
-  codegen:
-    name: Codegen
-    needs: pre_ci
-    if: needs.pre_ci.outputs.continue
-    runs-on: ubuntu-latest
-    timeout-minutes: 45
-    steps:
-      - uses: actions/checkout@v4
-      - uses: dtolnay/rust-toolchain@stable
-      - run: cargo run --manifest-path codegen/Cargo.toml
-      - run: git diff --exit-code
 
   minimal:
     name: Minimal versions
@@ -145,7 +132,6 @@ jobs:
         with:
           components: clippy,rustc-dev
       - run: cargo clippy --all-features --tests --benches -- -Dclippy::all -Dclippy::pedantic
-      - run: cargo clippy --manifest-path codegen/Cargo.toml -- -Dclippy::all -Dclippy::pedantic
 
   outdated:
     name: Outdated
@@ -156,4 +142,3 @@ jobs:
       - uses: actions/checkout@v4
       - uses: dtolnay/install@cargo-outdated
       - run: cargo outdated --workspace --exit-code 1
-      - run: cargo outdated --manifest-path fuzz/Cargo.toml --exit-code 1

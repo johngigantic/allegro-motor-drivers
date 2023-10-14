@@ -1,7 +1,5 @@
 //! A4962 configuration registers
 
-use std::default;
-
 use bilge::prelude::*;
 
 #[bitsize(2)]

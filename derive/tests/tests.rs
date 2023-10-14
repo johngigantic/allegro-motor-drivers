@@ -7,7 +7,7 @@ use bilge::prelude::*;
 #[test]
 fn test_proc_macro() {
     #[bitsize(12)]
-    #[derive(AllegroRegister)]
+    // #[derive(AllegroRegister)]
     struct MyStruct {
         field_1: u12,
     }

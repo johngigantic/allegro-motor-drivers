@@ -62,7 +62,6 @@ jobs:
           components: ${{matrix.components}}
       - run: cargo check ${{env.target}} --no-default-features
       - run: cargo check ${{env.target}}
-      - run: cargo check ${{env.target}} --features full
       - if: matrix.components == 'rustc-dev'
         run: cargo check --benches --all-features --release
 

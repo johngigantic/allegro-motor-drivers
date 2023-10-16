@@ -8,26 +8,39 @@ use syn::{parse_macro_input, DeriveInput};
 
 #[proc_macro_derive(AllegroRegister)]
 pub fn derive(input: TokenStream) -> TokenStream {
-    let DeriveInput {
-        attrs,
-        vis,
-        ident,
-        generics,
-        data
-    } = parse_macro_input!(input as DeriveInput);
+    let DeriveInput { ident, attrs, .. } = parse_macro_input!(input as DeriveInput);
 
-    let bitsize = analyze_bitsize(attrs).unwrap();
+    let _bitsize = analyze_bitsize(attrs);
 
-    quote! {}.into()
+    quote! {
+        impl allegro_motor_drivers::io::AllegroRegister for #ident {
+            fn read_request(&self) -> u16 {
+                0
+            }
+
+            fn read_response(&mut self, value: u16) {
+
+            }
+
+            fn write_request(&self) -> u16 {
+                0
+            }
+        }
+    }
+    .into()
 }
 
-fn analyze_bitsize(attrs: Vec<syn::Attribute>) -> Option<u16> {
+fn analyze_bitsize(attrs: Vec<syn::Attribute>) -> u16 {
     for attr in attrs {
         if attr.path().is_ident("bitsize") {
             let a: syn::LitInt = attr.parse_args().unwrap();
             let value = a.base10_parse::<u16>().unwrap();
-            return Some(value);
+            return value;
         }
     }
-    None
+    panic!("'bitsize' attribute not found in object attributes.");
+}
+
+fn _has_parity_field(bitsize: u16) -> bool {
+    bitsize >= 9
 }

@@ -1,6 +1,6 @@
 //! Allegro A4910 Automotive 3-Phase MOSFET Driver
 
-use core::ops::{Index, IndexMut};
+// use core::ops::{Index, IndexMut};
 
 pub mod regs;
 
@@ -35,12 +35,12 @@ pub struct RegisterSettings {
 //     type Output = dyn AllegroRegister;
 
 //     fn index(&self, index: Register) -> &Self::Output {
-        
+
 //     }
 // }
 
 // impl IndexMut<Register> for RegisterSettings {
 //     fn index_mut(&mut self, index: Register) -> &mut Self::Output {
-        
+
 //     }
 // }

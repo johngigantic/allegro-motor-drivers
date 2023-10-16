@@ -1,5 +1,5 @@
 //! Mask configuration register
-//! 
+//!
 //! The mask register enables or disables detection of various faults.
 
 use bilge::prelude::*;

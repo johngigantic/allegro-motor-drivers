@@ -8,7 +8,9 @@ pub struct FaultBlankingTime(u6);
 
 impl Default for FaultBlankingTime {
     fn default() -> Self {
-        Self { value: u6::new(0b10_0000), }
+        Self {
+            value: u6::new(0b10_0000),
+        }
     }
 }
 
@@ -18,7 +20,9 @@ pub struct DeadTime(u7);
 
 impl Default for DeadTime {
     fn default() -> Self {
-        Self { value: u7::new(0b010_0000), }
+        Self {
+            value: u7::new(0b010_0000),
+        }
     }
 }
 
@@ -62,7 +66,9 @@ pub struct VdsThreshold(u7);
 
 impl Default for VdsThreshold {
     fn default() -> Self {
-        Self { value: u7::new(0b010_0000), }
+        Self {
+            value: u7::new(0b010_0000),
+        }
     }
 }
 

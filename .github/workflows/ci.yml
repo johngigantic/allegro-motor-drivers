@@ -90,8 +90,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@nightly
-      - uses: dtolnay/install@cargo-docs-rs
-      - run: cargo docs-rs
+      - run: cargo doc
       - run: cargo test --all-features --doc
 
   minimal:

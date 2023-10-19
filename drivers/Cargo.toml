@@ -19,3 +19,9 @@ categories = ["no-std", "embedded", "hardware-support", "science::robotics"]
 
 [dependencies]
 bilge = "0.2.0"
+
+# TODO: remove proc-macro-error from dependencies.
+# proc-macro-error is not a direct dependency of this crate, but a dependency of bilge.
+# It has a bug in v1.0.0, but bilge permissively allows v1.0.0 as the minimum dependency.
+# The statement here is to restrict proc-macro-error to v1.0.4 at minimum.
+proc-macro-error = "1.0.4"

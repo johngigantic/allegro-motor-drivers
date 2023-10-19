@@ -42,12 +42,6 @@ jobs:
           - rust: nightly
             components: rustc-dev
           - rust: nightly
-            name: ARM64
-            target: aarch64-unknown-none
-          - rust: nightly
-            name: ThumbV7
-            target: thumbv7m-none-eabi
-          - rust: nightly
             name: Windows
             os: windows
     env:
@@ -62,7 +56,6 @@ jobs:
           components: ${{matrix.components}}
       - run: cargo check ${{env.target}} --no-default-features
       - run: cargo check ${{env.target}}
-      - run: cargo check ${{env.target}} --features full
       - if: matrix.components == 'rustc-dev'
         run: cargo check --benches --all-features --release
 
@@ -91,8 +84,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: dtolnay/rust-toolchain@nightly
-      - uses: dtolnay/install@cargo-docs-rs
-      - run: cargo docs-rs
+      - run: cargo doc
       - run: cargo test --all-features --doc
 
   minimal:

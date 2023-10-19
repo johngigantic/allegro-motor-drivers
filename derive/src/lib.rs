@@ -31,14 +31,19 @@ pub fn derive(input: TokenStream) -> TokenStream {
 }
 
 fn analyze_bitsize(attrs: Vec<syn::Attribute>) -> u16 {
-    for attr in attrs {
+    let mut bitsizes = attrs.iter().filter_map(|attr| {
         if attr.path().is_ident("bitsize") {
             let a: syn::LitInt = attr.parse_args().unwrap();
-            let value = a.base10_parse::<u16>().unwrap();
-            return value;
+            Some(a.base10_parse::<u16>().unwrap())
+        } else {
+            None
         }
+    });
+
+    match bitsizes.next() {
+        Some(bitsize) => bitsize,
+        None => panic!("'bitsize' not found in object attributes."),
     }
-    panic!("'bitsize' attribute not found in object attributes.");
 }
 
 fn _has_parity_field(bitsize: u16) -> bool {

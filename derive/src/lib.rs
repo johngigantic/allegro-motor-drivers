@@ -10,24 +10,45 @@ use syn::{parse_macro_input, DeriveInput};
 pub fn derive(input: TokenStream) -> TokenStream {
     let DeriveInput { ident, attrs, .. } = parse_macro_input!(input as DeriveInput);
 
-    let _bitsize = analyze_bitsize(attrs);
+    let bitsize = analyze_bitsize(attrs);
+    let parity = has_parity_field(bitsize);
+
+    let read_request_function = generate_read_request(parity);
+    let read_response_function = generate_read_response(parity);
+    let write_request_function = generate_write_request(parity);
 
     quote! {
         impl allegro_motor_drivers::io::AllegroRegister for #ident {
-            fn read_request(&self) -> u16 {
-                0
-            }
-
-            fn read_response(&mut self, value: u16) {
-
-            }
-
-            fn write_request(&self) -> u16 {
-                0
-            }
+            #read_request_function
+            #read_response_function
+            #write_request_function
         }
     }
     .into()
+}
+
+fn generate_read_request(_parity: bool) -> proc_macro2::TokenStream {
+    quote! {
+        fn read_request(&self) -> u16 {
+            0
+        }
+    }
+}
+
+fn generate_read_response(_parity: bool) -> proc_macro2::TokenStream {
+    quote! {
+        fn read_response(&mut self, value: u16) {
+
+        }
+    }
+}
+
+fn generate_write_request(_parity: bool) -> proc_macro2::TokenStream {
+    quote! {
+        fn write_request(&self) -> u16 {
+            0
+        }
+    }
 }
 
 fn analyze_bitsize(attrs: Vec<syn::Attribute>) -> u16 {
@@ -46,6 +67,6 @@ fn analyze_bitsize(attrs: Vec<syn::Attribute>) -> u16 {
     }
 }
 
-fn _has_parity_field(bitsize: u16) -> bool {
+fn has_parity_field(bitsize: u16) -> bool {
     bitsize >= 9
 }

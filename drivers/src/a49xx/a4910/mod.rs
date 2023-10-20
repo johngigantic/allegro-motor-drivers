@@ -32,7 +32,7 @@ pub struct RegisterSettings {
 }
 
 // impl Index<Register> for RegisterSettings {
-//     type Output = dyn AllegroRegister;
+//     type Output = dyn SpiMessages;
 
 //     fn index(&self, index: Register) -> &Self::Output {
 

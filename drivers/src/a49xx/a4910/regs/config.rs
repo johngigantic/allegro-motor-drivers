@@ -1,9 +1,10 @@
-//! Configuration register
+//! Configuration registers 0 and 1
 
+use allegro_motor_derive::spi_derive;
 use bilge::prelude::*;
 
 #[bitsize(6)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]
 pub struct FaultBlankingTime(u6);
 
 impl Default for FaultBlankingTime {
@@ -15,7 +16,7 @@ impl Default for FaultBlankingTime {
 }
 
 #[bitsize(7)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]
 pub struct DeadTime(u7);
 
 impl Default for DeadTime {
@@ -27,7 +28,7 @@ impl Default for DeadTime {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Clone, Copy, Debug, PartialEq, Default, FromBits)]
 pub enum CurrentSenseBandwidth {
     ReducedBandwidth,
     #[default]
@@ -35,7 +36,7 @@ pub enum CurrentSenseBandwidth {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Clone, Copy, Debug, PartialEq, Default, FromBits)]
 pub enum StopOnFault {
     Disabled,
     #[default]
@@ -43,7 +44,7 @@ pub enum StopOnFault {
 }
 
 #[bitsize(2)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Clone, Copy, Debug, PartialEq, Default, FromBits)]
 pub enum DiagOutput {
     #[default]
     GeneralFault,
@@ -53,7 +54,7 @@ pub enum DiagOutput {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Clone, Copy, Debug, PartialEq, Default, FromBits)]
 pub enum DisableBootstrapManagement {
     #[default]
     Active,
@@ -61,7 +62,7 @@ pub enum DisableBootstrapManagement {
 }
 
 #[bitsize(7)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]
 pub struct VdsThreshold(u7);
 
 impl Default for VdsThreshold {
@@ -72,6 +73,7 @@ impl Default for VdsThreshold {
     }
 }
 
+#[derive(spi_derive)]
 #[bitsize(13)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config0 {
@@ -79,6 +81,7 @@ pub struct Config0 {
     pub bt: FaultBlankingTime,
 }
 
+#[derive(spi_derive)]
 #[bitsize(13)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config1 {

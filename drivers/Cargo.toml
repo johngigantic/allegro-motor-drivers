@@ -19,6 +19,8 @@ categories = ["no-std", "embedded", "hardware-support", "science::robotics"]
 
 [dependencies]
 bilge = "0.2.0"
+allegro-motor-derive = { version = "0.1.0", path = "../derive" }
+
 
 # TODO: remove proc-macro-error from dependencies.
 # proc-macro-error is not a direct dependency of this crate, but a dependency of bilge.

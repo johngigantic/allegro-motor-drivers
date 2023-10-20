@@ -7,7 +7,7 @@ use quote::quote;
 use syn::{parse_macro_input, DeriveInput};
 
 /// Derive macro to implement the allegro_motor_drivers::io::SpiMessages trait.
-/// 
+///
 /// Please note that a compile failure will occur if derive macros are defined in the wrong order,
 /// or if the bitsize derive macro is not used at all. This occurs because derive macros are parsed
 /// from the outside in, and each macro depends on implementations defined by other macros.
@@ -17,7 +17,7 @@ use syn::{parse_macro_input, DeriveInput};
 ///     field_1: bool,
 /// }
 /// ```
-/// 
+///
 /// ```compile_fail
 /// #[bitsize(1)]
 /// #[derive(spi_derive)]
@@ -25,7 +25,7 @@ use syn::{parse_macro_input, DeriveInput};
 ///     field_1: bool,
 /// }
 /// ```
-/// 
+///
 #[proc_macro_derive(spi_derive)]
 pub fn derive(input: TokenStream) -> TokenStream {
     let DeriveInput { ident, attrs, .. } = parse_macro_input!(input as DeriveInput);

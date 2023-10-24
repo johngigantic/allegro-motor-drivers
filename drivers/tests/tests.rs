@@ -3,8 +3,8 @@
 /// TODO(John Little): Comment in the failing example tests when the code is complete.
 #[test]
 fn test_spi_derive() {
-    use allegro_motor_drivers::a49xx::a4910::regs::config::*;
-    use allegro_motor_drivers::io::SpiMessages;
+    use allegro_motor_drivers::a4910::regs::config::*;
+    use allegro_motor_drivers::io::spi::Messages;
     use bilge::prelude::*;
 
     let mut c1 = Config1::default();

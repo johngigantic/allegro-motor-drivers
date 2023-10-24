@@ -2,6 +2,12 @@
 
 #![no_std]
 
-pub mod a49xx;
-pub mod amt49xxx;
+pub mod a4910;
+pub mod a4962;
+pub mod a4963;
+pub mod a4964;
+pub mod amt49100;
+pub mod amt49101;
+pub mod amt49106;
+pub mod amt49107;
 pub mod io;

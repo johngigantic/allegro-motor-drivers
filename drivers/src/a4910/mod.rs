@@ -2,6 +2,7 @@
 
 // use core::ops::{Index, IndexMut};
 
+pub mod io;
 pub mod regs;
 
 pub use regs::{

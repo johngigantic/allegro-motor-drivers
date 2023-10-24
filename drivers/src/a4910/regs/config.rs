@@ -1,6 +1,8 @@
 //! Configuration registers 0 and 1
 
-use allegro_motor_derive::spi_derive;
+extern crate allegro_motor_derive;
+
+use allegro_motor_derive::Messages;
 use bilge::prelude::*;
 
 #[bitsize(6)]
@@ -73,17 +75,16 @@ impl Default for VdsThreshold {
     }
 }
 
-#[derive(spi_derive)]
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, Messages)]
 pub struct Config0 {
     pub dt: DeadTime,
     pub bt: FaultBlankingTime,
 }
 
-#[derive(spi_derive)]
+// #[spi_derive(a4910)]
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, Messages)]
 pub struct Config1 {
     pub vt: VdsThreshold,
     reserved: u1,

@@ -25,11 +25,3 @@ pub struct DiagnosticData {
     pub ot: bool,
     pub tw: bool,
 }
-
-#[bitsize(16)]
-#[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
-pub struct Diagnostic {
-    pub data: DiagnosticData,
-    reserved: u2,
-    pub header: DiagnosticHeader,
-}

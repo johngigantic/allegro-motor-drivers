@@ -27,3 +27,5 @@ allegro-motor-derive = { version = "0.1.0", path = "../derive" }
 # It has a bug in v1.0.0, but bilge permissively allows v1.0.0 as the minimum dependency.
 # The statement here is to restrict proc-macro-error to v1.0.4 at minimum.
 proc-macro-error = "1.0.4"
+embedded-hal = "1.0.0-rc.1"
+arbitrary-int = "1.2.6"

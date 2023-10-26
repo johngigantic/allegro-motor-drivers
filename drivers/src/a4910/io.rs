@@ -5,6 +5,7 @@ use bilge::prelude::*;
 use super::regs::diagnostic::{DiagnosticData, DiagnosticHeader};
 
 #[bitsize(16)]
+#[derive(DebugBits, DefaultBits, PartialEq, FromBits)]
 pub struct ReadRequest {
     addr: u2,
     write_read: bool,
@@ -12,17 +13,19 @@ pub struct ReadRequest {
 }
 
 #[bitsize(16)]
+#[derive(DebugBits, DefaultBits, PartialEq, FromBits)]
 pub struct ReadResponse {
-    status: DiagnosticHeader,
+    pub status: DiagnosticHeader,
     write_read: bool,
-    register: u13,
+    pub register: u13,
 }
 
 #[bitsize(16)]
+#[derive(DebugBits, DefaultBits, PartialEq, FromBits)]
 pub struct WriteRequest {
     addr: u2,
     write_read: bool,
-    reserved: u13,
+    register: u13,
 }
 
 #[bitsize(16)]
@@ -32,3 +35,5 @@ pub struct WriteResponse {
     reserved: u2,
     pub header: DiagnosticHeader,
 }
+
+pub type Diagnostics = WriteResponse;

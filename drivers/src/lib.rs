@@ -1,6 +1,7 @@
 //! Host-side drivers for Allegro Microsystems motor controller integrated circuits
 
 #![no_std]
+#![feature(trait_alias)]
 
 pub mod a4910;
 pub mod a4962;

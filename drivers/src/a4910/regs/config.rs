@@ -4,7 +4,8 @@ extern crate allegro_motor_derive;
 
 use bilge::prelude::*;
 
-use crate::regs::AllegroRegister;
+use crate::regs::{AllegroRegister, ConstantAddress};
+use super::A4910Reg;
 
 #[bitsize(6)]
 #[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]
@@ -93,6 +94,10 @@ impl AllegroRegister<u13> for Config0 {
     }
 }
 
+impl ConstantAddress<A4910Reg> for Config0 {
+    const ADDRESS: A4910Reg = A4910Reg::Config0;
+}
+
 #[bitsize(13)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config1 {
@@ -112,4 +117,8 @@ impl AllegroRegister<u13> for Config1 {
     fn set_value(&mut self, value: u13) {
         self.value = value
     }
+}
+
+impl ConstantAddress<A4910Reg> for Config1 {
+    const ADDRESS: A4910Reg = A4910Reg::Config1;
 }

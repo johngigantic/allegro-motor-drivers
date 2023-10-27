@@ -11,21 +11,21 @@ use mask::Mask;
 use run::Run;
 
 #[derive(Debug, PartialEq, Clone, Copy)]
-pub enum Register {
+pub enum A4910Reg {
     Config0,
     Config1,
     Mask,
     Run,
 }
 
-impl From<Register> for u8 {
-    fn from(value: Register) -> Self {
+impl From<A4910Reg> for u8 {
+    fn from(value: A4910Reg) -> Self {
         value as u8
     }
 }
 
-impl From<Register> for u2 {
-    fn from(value: Register) -> Self {
+impl From<A4910Reg> for u2 {
+    fn from(value: A4910Reg) -> Self {
         u2::new(value.into())
     }
 }
@@ -38,28 +38,28 @@ pub struct RegisterSettings {
     pub run: Run,
 }
 
-impl Index<Register> for RegisterSettings {
+impl Index<A4910Reg> for RegisterSettings {
     type Output = dyn crate::regs::AllegroRegister<u13>;
 
-    fn index(&self, index: Register) -> &Self::Output {
+    fn index(&self, index: A4910Reg) -> &Self::Output {
         match index {
-            Register::Config0 => &self.cfg0,
-            Register::Config1 => &self.cfg1,
-            Register::Mask => &self.mask,
-            Register::Run => &self.run,
+            A4910Reg::Config0 => &self.cfg0,
+            A4910Reg::Config1 => &self.cfg1,
+            A4910Reg::Mask => &self.mask,
+            A4910Reg::Run => &self.run,
         }
     }
 }
 
-impl IndexMut<Register> for RegisterSettings {
-    fn index_mut(&mut self, index: Register) -> &mut Self::Output {
+impl IndexMut<A4910Reg> for RegisterSettings {
+    fn index_mut(&mut self, index: A4910Reg) -> &mut Self::Output {
         match index {
-            Register::Config0 => &mut self.cfg0,
-            Register::Config1 => &mut self.cfg1,
-            Register::Mask => &mut self.mask,
-            Register::Run => &mut self.run,
+            A4910Reg::Config0 => &mut self.cfg0,
+            A4910Reg::Config1 => &mut self.cfg1,
+            A4910Reg::Mask => &mut self.mask,
+            A4910Reg::Run => &mut self.run,
         }
     }
 }
 
-impl crate::regs::RegisterSettings<Register> for RegisterSettings {}
+impl crate::regs::RegisterSettings<A4910Reg> for RegisterSettings {}

@@ -4,7 +4,7 @@ use embedded_hal::spi::SpiDevice;
 
 use super::{
     io::{Diagnostics, ReadRequest, ReadResponse, WriteRequest, WriteResponse},
-    regs::{Register, RegisterSettings},
+    regs::{A4910Reg, RegisterSettings},
 };
 pub struct A4910<SPI> {
     spi: SPI,
@@ -24,15 +24,15 @@ where
         }
     }
 
-    fn read_request(&self, reg: Register) -> u16 {
+    fn read_request(&self, reg: A4910Reg) -> u16 {
         ReadRequest::new(false, reg.into()).into()
     }
 
-    fn write_request(&self, reg: Register) -> u16 {
+    fn write_request(&self, reg: A4910Reg) -> u16 {
         WriteRequest::new(self.regs[reg].get_value().into(), true, reg.into()).into()
     }
 
-    fn read_response(&mut self, reg: Register, msg: u16) {
+    fn read_response(&mut self, reg: A4910Reg, msg: u16) {
         let r = ReadResponse::from(msg);
         self.regs[reg].set_value(r.register());
     }
@@ -56,8 +56,8 @@ mod tests {
         
         let a4910 = A4910::new(spi_device);
 
-        assert_eq!(a4910.read_request(Register::Config0), 0b00_0_0000000000000);
-        assert_eq!(a4910.read_request(Register::Config1), 0b01_0_0000000000000);
+        assert_eq!(a4910.read_request(A4910Reg::Config0), 0b00_0_0000000000000);
+        assert_eq!(a4910.read_request(A4910Reg::Config1), 0b01_0_0000000000000);
 
         // assert_eq!(c1.write_request(), 0b01_1_1_1_00_0_0_0100000);
 

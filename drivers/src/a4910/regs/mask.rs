@@ -4,7 +4,8 @@
 
 use bilge::prelude::*;
 
-use crate::regs::AllegroRegister;
+use crate::regs::{AllegroRegister, ConstantAddress};
+use super::A4910Reg;
 
 #[bitsize(13)]
 #[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
@@ -32,4 +33,8 @@ impl AllegroRegister<u13> for Mask {
     fn set_value(&mut self, value: u13) {
         self.value = value;
     }
+}
+
+impl ConstantAddress<A4910Reg> for Mask {
+    const ADDRESS: A4910Reg = A4910Reg::Mask;
 }

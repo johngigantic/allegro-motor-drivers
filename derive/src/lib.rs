@@ -12,21 +12,13 @@ mod chips;
 
 #[proc_macro_derive(Messages)]
 pub fn spi_message_derive(item: TokenStream) -> TokenStream {
-    let DeriveInput {ident, ..} = parse_macro_input!(item as DeriveInput);
+    let DeriveInput {ident, attrs, ..} = parse_macro_input!(item as DeriveInput);
 
-    let source_file = proc_macro::Span::call_site().source_file().clone().path();
-    let chip_name = source_file.iter().nth(2).unwrap().to_str().unwrap();
-    let chip = chips::CHIPS.into_iter().find(|chip| {chip.name == chip_name}).unwrap();
-
-    let read_request_function = generate_read_request(&chip);
-    let read_response_function = generate_read_response(&chip);
-    let write_request_function = generate_write_request(&chip);
+    let bitsize = analyze_bitsize(&attrs);
 
     quote! {
         impl crate::io::spi::Messages for #ident {
-            #read_request_function
-            #read_response_function
-            #write_request_function
+
         }
     }.into()
 }
@@ -128,5 +120,21 @@ fn generate_write_request(chip: &chips::Chip) -> proc_macro2::TokenStream {
         fn write_request(&self) -> u16 {
             0
         }
+    }
+}
+
+fn analyze_bitsize(attrs: &Vec<syn::Attribute>) -> u16 {
+    let mut bitsizes = attrs.iter().filter_map(|attr| {
+        if attr.path().is_ident("bitsize") {
+            let a: syn::LitInt = attr.parse_args().unwrap();
+            Some(a.base10_parse::<u16>().unwrap())
+        } else {
+            None
+        }
+    });
+
+    match bitsizes.next() {
+        Some(bitsize) => bitsize,
+        None => panic!("'bitsize' not found in object attributes."),
     }
 }

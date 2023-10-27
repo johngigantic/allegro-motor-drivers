@@ -7,9 +7,9 @@ use super::{
     regs::{A4910Reg, RegisterSettings},
 };
 pub struct A4910<SPI> {
-    spi: SPI,
-    regs: RegisterSettings,
-    status: Diagnostics,
+    _spi: SPI,
+    _regs: RegisterSettings,
+    _status: Diagnostics,
 }
 
 impl<SPI> A4910<SPI>
@@ -18,27 +18,27 @@ where
 {
     pub fn new(spi: SPI) -> Self {
         Self {
-            spi,
-            regs: RegisterSettings::default(),
-            status: Diagnostics::default(),
+            _spi: spi,
+            _regs: RegisterSettings::default(),
+            _status: Diagnostics::default(),
         }
     }
 
-    fn read_request(&self, reg: A4910Reg) -> u16 {
+    fn _read_request(&self, reg: A4910Reg) -> u16 {
         ReadRequest::new(false, reg.into()).into()
     }
 
-    fn write_request(&self, reg: A4910Reg) -> u16 {
-        WriteRequest::new(self.regs[reg].get_value().into(), true, reg.into()).into()
+    fn _write_request(&self, reg: A4910Reg) -> u16 {
+        WriteRequest::new(self._regs[reg].get_value().into(), true, reg.into()).into()
     }
 
-    fn read_response(&mut self, reg: A4910Reg, msg: u16) {
+    fn _read_response(&mut self, reg: A4910Reg, msg: u16) {
         let r = ReadResponse::from(msg);
-        self.regs[reg].set_value(r.register());
+        self._regs[reg].set_value(r.register());
     }
 
-    fn write_response(&mut self, msg: u16) {
-        self.status = WriteResponse::from(msg);
+    fn _write_response(&mut self, msg: u16) {
+        self._status = WriteResponse::from(msg);
     }
 }
 
@@ -53,8 +53,8 @@ mod tests {
 
         let a4910 = A4910::new(spi_device);
 
-        assert_eq!(a4910.read_request(A4910Reg::Config0), 0b00_0_0000000000000);
-        assert_eq!(a4910.read_request(A4910Reg::Config1), 0b01_0_0000000000000);
+        assert_eq!(a4910._read_request(A4910Reg::Config0), 0b00_0_0000000000000);
+        assert_eq!(a4910._read_request(A4910Reg::Config1), 0b01_0_0000000000000);
 
         // assert_eq!(c1.write_request(), 0b01_1_1_1_00_0_0_0100000);
 

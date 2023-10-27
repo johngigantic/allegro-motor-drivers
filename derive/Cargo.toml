@@ -3,7 +3,7 @@ name = "allegro-motor-derive"
 version = "0.1.0"
 authors = ["John Little"]
 edition = "2021"
-# rust-version = ""
+rust-version = "1.65.0"
 description = "Derive macros for Allegro motor driver registers"
 # documentation = "https://docs.rs/allegro-motor-derive"
 # readme = false
@@ -23,6 +23,7 @@ proc-macro = true
 proc-macro2 = "1.0.69"
 quote = "1.0.33"
 syn = "2.0.38"
+# allegro-motor-drivers = { version = "0.1.0", path = "../drivers" }
 
 [dev-dependencies]
 bilge = "0.2.0"

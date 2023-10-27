@@ -1,7 +1,5 @@
 //! A4962 configuration registers
 
-use std::default;
-
 use bilge::prelude::*;
 
 #[bitsize(2)]
@@ -20,7 +18,9 @@ pub struct BlankTime(u4);
 
 impl Default for BlankTime {
     fn default() -> Self {
-        Self { value: u4::new(0b1000), }
+        Self {
+            value: u4::new(0b1000),
+        }
     }
 }
 
@@ -30,7 +30,9 @@ pub struct DeadTime(u6);
 
 impl Default for DeadTime {
     fn default() -> Self {
-        Self { value: u6::new(0b01_0100), }
+        Self {
+            value: u6::new(0b01_0100),
+        }
     }
 }
 
@@ -56,7 +58,9 @@ pub struct CurrentSenseThreshold(u4);
 
 impl Default for CurrentSenseThreshold {
     fn default() -> Self {
-        Self { value: u4::new(0b1111), }
+        Self {
+            value: u4::new(0b1111),
+        }
     }
 }
 
@@ -74,7 +78,9 @@ pub struct VdsThreshold(u5);
 
 impl Default for VdsThreshold {
     fn default() -> Self {
-        Self { value: u5::new(0b1_1111), }
+        Self {
+            value: u5::new(0b1_1111),
+        }
     }
 }
 
@@ -84,7 +90,9 @@ pub struct PositionProportionalGain(u4);
 
 impl Default for PositionProportionalGain {
     fn default() -> Self {
-        Self { value: u4::new(0b0111), }
+        Self {
+            value: u4::new(0b0111),
+        }
     }
 }
 
@@ -112,7 +120,9 @@ pub struct FixedOffTime(u5);
 
 impl Default for FixedOffTime {
     fn default() -> Self {
-        Self { value: u5::new(0b1_0011), }
+        Self {
+            value: u5::new(0b1_0011),
+        }
     }
 }
 
@@ -122,7 +132,9 @@ pub struct PositionIntegralGain(u4);
 
 impl Default for PositionIntegralGain {
     fn default() -> Self {
-        Self { value: u4::new(0b0111), }
+        Self {
+            value: u4::new(0b0111),
+        }
     }
 }
 
@@ -132,7 +144,9 @@ pub struct HoldPwmDutyCycle(u4);
 
 impl Default for HoldPwmDutyCycle {
     fn default() -> Self {
-        Self { value: u4::new(0b0101), }
+        Self {
+            value: u4::new(0b0101),
+        }
     }
 }
 
@@ -142,7 +156,9 @@ pub struct HoldTime(u4);
 
 impl Default for HoldTime {
     fn default() -> Self {
-        Self { value: u4::new(0b0010), }
+        Self {
+            value: u4::new(0b0010),
+        }
     }
 }
 
@@ -152,7 +168,9 @@ pub struct SpeedProportionalGain(u4);
 
 impl Default for SpeedProportionalGain {
     fn default() -> Self {
-        Self { value: u4::new(0b0111), }
+        Self {
+            value: u4::new(0b0111),
+        }
     }
 }
 
@@ -162,7 +180,9 @@ pub struct ForcedPwmDutyCycle(u4);
 
 impl Default for ForcedPwmDutyCycle {
     fn default() -> Self {
-        Self { value: u4::new(0b0111), }
+        Self {
+            value: u4::new(0b0111),
+        }
     }
 }
 
@@ -172,7 +192,9 @@ pub struct StartSpeed(u4);
 
 impl Default for StartSpeed {
     fn default() -> Self {
-        Self { value: u4::new(0b0011), }
+        Self {
+            value: u4::new(0b0011),
+        }
     }
 }
 
@@ -182,7 +204,9 @@ pub struct SpeedIntegralGain(u4);
 
 impl Default for SpeedIntegralGain {
     fn default() -> Self {
-        Self { value: u4::new(0b0111), }
+        Self {
+            value: u4::new(0b0111),
+        }
     }
 }
 
@@ -200,7 +224,9 @@ pub struct MaximumSpeed(u3);
 
 impl Default for MaximumSpeed {
     fn default() -> Self {
-        Self { value: u3::new(0b101), }
+        Self {
+            value: u3::new(0b101),
+        }
     }
 }
 
@@ -210,7 +236,9 @@ pub struct PhaseAdvance(u4);
 
 impl Default for PhaseAdvance {
     fn default() -> Self {
-        Self { value: u4::new(0b1000), }
+        Self {
+            value: u4::new(0b1000),
+        }
     }
 }
 

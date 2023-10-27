@@ -26,7 +26,9 @@ pub struct DutyCycleControl(u5);
 
 impl Default for DutyCycleControl {
     fn default() -> Self {
-        Self { value: u5::new(0b0_0000), }
+        Self {
+            value: u5::new(0b0_0000),
+        }
     }
 }
 
@@ -73,4 +75,3 @@ pub struct Run {
     pub esf: StopOnFail,
     pub cm: MotorControlMode,
 }
-

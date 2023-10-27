@@ -1,4 +1,6 @@
-//! A derive macro to set up registers for parsing in and out of SPI messages
+//! Derive macros to implement allegro_motor_drivers::io traits.
+
+#![feature(proc_macro_span)]
 
 extern crate proc_macro;
 
@@ -6,28 +8,32 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, DeriveInput};
 
+mod chips;
+
+/// Derive macro to implement the allegro_motor_drivers::regs::AllegroRegister trait.
+///
 #[proc_macro_derive(AllegroRegister)]
-pub fn derive(input: TokenStream) -> TokenStream {
-    let DeriveInput {
-        attrs,
-        vis,
-        ident,
-        generics,
-        data
-    } = parse_macro_input!(input as DeriveInput);
+pub fn allegro_derive(item: TokenStream) -> TokenStream {
+    let DeriveInput { ident, .. } = parse_macro_input!(item as DeriveInput);
 
-    let bitsize = analyze_bitsize(attrs).unwrap();
+    let source_file = proc_macro::Span::call_site().source_file().clone().path();
+    let chip_name = source_file.iter().nth(2).unwrap().to_str().unwrap();
+    let chip = chips::CHIPS
+        .into_iter()
+        .find(|chip| chip.name == chip_name)
+        .unwrap();
+    let bitsize = proc_macro2::Literal::u16_unsuffixed(chip.register_size);
 
-    quote! {}.into()
-}
+    quote! {
+        impl crate::regs::AllegroRegister<bilge::prelude::UInt<u16, #bitsize>> for #ident {
+            fn get_value(&self) -> u16 {
+                self.value.into()
+            }
 
-fn analyze_bitsize(attrs: Vec<syn::Attribute>) -> Option<u16> {
-    for attr in attrs {
-        if attr.path().is_ident("bitsize") {
-            let a: syn::LitInt = attr.parse_args().unwrap();
-            let value = a.base10_parse::<u16>().unwrap();
-            return Some(value);
+            fn set_value(&mut self, value: bilge::prelude::UInt<u16, #bitsize>) {
+                self.value = value;
+            }
         }
     }
-    None
+    .into()
 }

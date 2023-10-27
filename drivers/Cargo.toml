@@ -3,7 +3,7 @@ name = "allegro-motor-drivers"
 version = "0.1.0"
 authors = ["John Little"]
 edition = "2021"
-# rust-version = ""
+rust-version = "1.65.0"
 description = "Allegro microsystems motor controller driver registers"
 # documentation = "https://docs.rs/allegro-motor-drivers"
 readme = "../README.md"
@@ -19,3 +19,20 @@ categories = ["no-std", "embedded", "hardware-support", "science::robotics"]
 
 [dependencies]
 bilge = "0.2.0"
+allegro-motor-derive = { version = "0.1.0", path = "../derive" }
+
+
+# TODO: remove proc-macro-error from dependencies.
+# proc-macro-error is not a direct dependency of this crate, but a dependency of bilge.
+# It has a bug in v1.0.0, but bilge permissively allows v1.0.0 as the minimum dependency.
+# The statement here is to restrict proc-macro-error to v1.0.4 at minimum.
+proc-macro-error = "1.0.4"
+
+# TODO: update embedded-hal to 1.0.0-rc.1
+# embedded-hal-mock is currently unstable on its 1-alpha branch.
+# That branch currently has an out-of-date dependency on embedded-hal 1.0.0-alpha.10.
+embedded-hal = "1.0.0-alpha.10"
+arbitrary-int = "1.2.6"
+
+[dev-dependencies]
+embedded-hal-mock = { git = "https://github.com/dbrgn/embedded-hal-mock", branch = "1-alpha" }

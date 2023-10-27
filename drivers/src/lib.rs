@@ -1,22 +1,16 @@
-//! Embedded systems drivers for Allegro Microsystems motor controller integrated circuits
+//! Host-side drivers for Allegro Microsystems motor controller integrated circuits
 
-pub mod a49xx;
-pub mod amt49xxx;
+#![cfg_attr(not(test), no_std)]
+#![feature(trait_alias)]
 
-pub(crate) use bilge::prelude::*;
+pub mod a4910;
+pub mod a4962;
+pub mod a4963;
+pub mod a4964;
+pub mod amt49100;
+pub mod amt49101;
+pub mod amt49106;
+pub mod amt49107;
 
-
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub mod io;
+pub mod regs;

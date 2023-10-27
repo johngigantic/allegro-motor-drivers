@@ -2,9 +2,10 @@
 
 extern crate allegro_motor_derive;
 
+use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
-use crate::regs::{AllegroRegister, ConstantAddress};
+use crate::regs::ConstantAddress;
 use super::A4910Reg;
 
 #[bitsize(6)]
@@ -78,20 +79,10 @@ impl Default for VdsThreshold {
 }
 
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, AllegroRegister)]
 pub struct Config0 {
     pub dt: DeadTime,
     pub bt: FaultBlankingTime,
-}
-
-impl AllegroRegister<u13> for Config0 {
-    fn get_value(&self) -> u16 {
-        self.value.into()
-    }
-
-    fn set_value(&mut self, value: u13) {
-        self.value = value
-    }
 }
 
 impl ConstantAddress<A4910Reg> for Config0 {
@@ -99,7 +90,7 @@ impl ConstantAddress<A4910Reg> for Config0 {
 }
 
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, AllegroRegister)]
 pub struct Config1 {
     pub vt: VdsThreshold,
     reserved: u1,
@@ -107,16 +98,6 @@ pub struct Config1 {
     pub diag: DiagOutput,
     pub esf: StopOnFault,
     pub csb: CurrentSenseBandwidth,
-}
-
-impl AllegroRegister<u13> for Config1 {
-    fn get_value(&self) -> u16 {
-        self.value.into()
-    }
-
-    fn set_value(&mut self, value: u13) {
-        self.value = value
-    }
 }
 
 impl ConstantAddress<A4910Reg> for Config1 {

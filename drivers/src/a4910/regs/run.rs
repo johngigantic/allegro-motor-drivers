@@ -1,12 +1,13 @@
 //! Run configuration register
 
 use bilge::prelude::*;
+use allegro_motor_derive::AllegroRegister;
 
-use crate::regs::{AllegroRegister, ConstantAddress};
+use crate::regs::ConstantAddress;
 use super::A4910Reg;
 
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
+#[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits, AllegroRegister)]
 pub struct Run {
     pub cl: bool,
     pub ch: bool,
@@ -17,15 +18,15 @@ pub struct Run {
     reserved: u7,
 }
 
-impl AllegroRegister<u13> for Run {
-    fn get_value(&self) -> u16 {
-        self.value.into()
-    }
+// impl AllegroRegister<u13> for Run {
+//     fn get_value(&self) -> u16 {
+//         self.value.into()
+//     }
 
-    fn set_value(&mut self, value: u13) {
-        self.value = value;
-    }
-}
+//     fn set_value(&mut self, value: u13) {
+//         self.value = value;
+//     }
+// }
 
 impl ConstantAddress<A4910Reg> for Run {
     const ADDRESS: A4910Reg = A4910Reg::Run;

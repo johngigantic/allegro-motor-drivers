@@ -8,8 +8,8 @@ use super::{
 };
 pub struct A4910<SPI> {
     _spi: SPI,
-    _regs: RegisterSettings,
-    _status: Diagnostics,
+    pub regs: RegisterSettings,
+    pub status: Diagnostics,
 }
 
 impl<SPI> A4910<SPI>
@@ -19,42 +19,48 @@ where
     pub fn new(spi: SPI) -> Self {
         Self {
             _spi: spi,
-            _regs: RegisterSettings::default(),
-            _status: Diagnostics::default(),
+            regs: RegisterSettings::default(),
+            status: Diagnostics::default(),
         }
     }
 
-    fn _read_request(&self, reg: A4910Reg) -> u16 {
+    fn _read_request(reg: A4910Reg) -> u16 {
         ReadRequest::new(false, reg.into()).into()
     }
 
     fn _write_request(&self, reg: A4910Reg) -> u16 {
-        WriteRequest::new(self._regs[reg].get_value().into(), true, reg.into()).into()
+        WriteRequest::new(self.regs[reg].get_value().into(), true, reg.into()).into()
     }
 
     fn _read_response(&mut self, reg: A4910Reg, msg: u16) {
         let r = ReadResponse::from(msg);
-        self._regs[reg].set_value(r.register());
+        self.regs[reg].set_value(r.register());
     }
 
     fn _write_response(&mut self, msg: u16) {
-        self._status = WriteResponse::from(msg);
+        self.status = WriteResponse::from(msg);
     }
 }
 
+#[allow(clippy::unusual_byte_groupings)]
 mod tests {
+
     #[test]
     fn test_spi_derive() {
         use super::*;
-        use embedded_hal_mock::spi::{Mock, Transaction};
+        use embedded_hal_mock::spi::Mock;
 
-        let expected_transfers = [Transaction::transfer(vec![1, 2], vec![3, 4])];
-        let spi_device = Mock::new(&expected_transfers);
+        let config0_read_req = 0b00_0_0000000000000;
+        assert_eq!(
+            A4910::<Mock>::_read_request(A4910Reg::Config0),
+            config0_read_req
+        );
 
-        let a4910 = A4910::new(spi_device);
-
-        assert_eq!(a4910._read_request(A4910Reg::Config0), 0b00_0_0000000000000);
-        assert_eq!(a4910._read_request(A4910Reg::Config1), 0b01_0_0000000000000);
+        let config1_read_req = 0b01_0_0000000000000;
+        assert_eq!(
+            A4910::<Mock>::_read_request(A4910Reg::Config1),
+            config1_read_req
+        );
 
         // assert_eq!(c1.write_request(), 0b01_1_1_1_00_0_0_0100000);
 

@@ -31,7 +31,7 @@ proc-macro-error = "1.0.4"
 # TODO: update embedded-hal to 1.0.0-rc.1
 # embedded-hal-mock is currently unstable on its 1-alpha branch.
 # That branch currently has an out-of-date dependency on embedded-hal 1.0.0-alpha.10.
-embedded-hal = "1.0.0-alpha.10"
+embedded-hal = "^1.0.0-alpha.10"
 arbitrary-int = "1.2.6"
 
 [dev-dependencies]

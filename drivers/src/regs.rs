@@ -1,4 +1,4 @@
-//! RegisterSettings and Register abstractions
+//! `RegisterSettings` and Register abstractions
 
 use core::ops::IndexMut;
 

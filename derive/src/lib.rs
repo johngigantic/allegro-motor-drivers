@@ -1,4 +1,4 @@
-//! Derive macros to implement allegro_motor_drivers::io traits.
+//! A derive macro to implement `allegro_motor_drivers::regs::AllegroRegister` trait.
 
 extern crate proc_macro;
 
@@ -6,21 +6,21 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, DeriveInput};
 
-/// Derive macro to implement the allegro_motor_drivers::regs::AllegroRegister trait.
-/// 
-/// See the [AllegroRegister trait][trait] for examples and complete documentation.
-/// 
+/// Derive macro to implement the `AllegroRegister` trait.
+///
+/// See the [original trait][trait] for examples and complete documentation.
+///
 /// [trait]: ../allegro_motor_drivers/regs/trait.AllegroRegister.html
-/// 
+///
 /// Please note that a compile failure will occur if derive macros are defined in the wrong order,
 /// or if the bitsize derive macro is not used at all. This occurs because derive macros are parsed
 /// from the outside in, and each macro depends on implementations defined by other macros.
-/// 
+///
 /// ```compile_fail
 /// # #[macro_use] extern crate allegro_motor_derive;
 /// # use bilge::prelude::*;
 /// #[derive(AllegroRegister)]
-/// struct StructWithoutBitsize {
+/// struct WithoutBitsize {
 ///     field_1: bool,
 /// }
 /// ```
@@ -58,7 +58,7 @@ pub fn allegro_derive(item: TokenStream) -> TokenStream {
     .into()
 }
 
-fn analyze_bitsize(attrs: &Vec<syn::Attribute>) -> Result<u16, syn::Error> {
+fn analyze_bitsize(attrs: &[syn::Attribute]) -> Result<u16, syn::Error> {
     let mut bitsizes = attrs.iter().filter_map(|attr| {
         if attr.path().is_ident("bitsize") {
             let a: syn::LitInt = attr.parse_args().unwrap();
@@ -70,6 +70,9 @@ fn analyze_bitsize(attrs: &Vec<syn::Attribute>) -> Result<u16, syn::Error> {
 
     match bitsizes.next() {
         Some(bitsize) => Ok(bitsize),
-        None => Err(syn::Error::new_spanned(attrs.iter().next(), "'bitsize' not found in object attributes.")),
+        None => Err(syn::Error::new_spanned(
+            attrs.iter().next(),
+            "'bitsize' not found in object attributes.",
+        )),
     }
 }

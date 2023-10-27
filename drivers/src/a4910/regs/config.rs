@@ -78,8 +78,9 @@ impl Default for VdsThreshold {
     }
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, AllegroRegister)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config0 {
     pub dt: DeadTime,
     pub bt: FaultBlankingTime,
@@ -89,8 +90,9 @@ impl ConstantAddress<A4910Reg> for Config0 {
     const ADDRESS: A4910Reg = A4910Reg::Config0;
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, AllegroRegister)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config1 {
     pub vt: VdsThreshold,
     reserved: u1,

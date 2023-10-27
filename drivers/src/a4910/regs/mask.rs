@@ -8,8 +8,9 @@ use bilge::prelude::*;
 use super::A4910Reg;
 use crate::regs::ConstantAddress;
 
+#[derive(AllegroRegister)]
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits, AllegroRegister)]
+#[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
 pub struct Mask {
     pub cl: bool,
     pub ch: bool,

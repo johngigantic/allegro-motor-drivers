@@ -122,3 +122,5 @@ impl AllegroRegister<u13> for Config1 {
 impl ConstantAddress<A4910Reg> for Config1 {
     const ADDRESS: A4910Reg = A4910Reg::Config1;
 }
+
+pub type Config = (Config0, Config1);

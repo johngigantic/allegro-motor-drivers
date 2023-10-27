@@ -2,7 +2,7 @@
 
 use bilge::prelude::*;
 
-use super::AllegroRegister;
+use crate::regs::AllegroRegister;
 
 #[bitsize(13)]
 #[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
@@ -16,8 +16,8 @@ pub struct Run {
     reserved: u7,
 }
 
-impl AllegroRegister for Run {
-    fn value(&self) -> u16 {
+impl AllegroRegister<u13> for Run {
+    fn get_value(&self) -> u16 {
         self.value.into()
     }
 

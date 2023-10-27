@@ -2,10 +2,9 @@
 
 extern crate allegro_motor_derive;
 
-use allegro_motor_derive::Messages;
 use bilge::prelude::*;
 
-use super::AllegroRegister;
+use crate::regs::AllegroRegister;
 
 #[bitsize(6)]
 #[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]
@@ -78,14 +77,14 @@ impl Default for VdsThreshold {
 }
 
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, Messages)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config0 {
     pub dt: DeadTime,
     pub bt: FaultBlankingTime,
 }
 
-impl AllegroRegister for Config0 {
-    fn value(&self) -> u16 {
+impl AllegroRegister<u13> for Config0 {
+    fn get_value(&self) -> u16 {
         self.value.into()
     }
 
@@ -95,7 +94,7 @@ impl AllegroRegister for Config0 {
 }
 
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, Messages)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config1 {
     pub vt: VdsThreshold,
     reserved: u1,
@@ -105,8 +104,8 @@ pub struct Config1 {
     pub csb: CurrentSenseBandwidth,
 }
 
-impl AllegroRegister for Config1 {
-    fn value(&self) -> u16 {
+impl AllegroRegister<u13> for Config1 {
+    fn get_value(&self) -> u16 {
         self.value.into()
     }
 

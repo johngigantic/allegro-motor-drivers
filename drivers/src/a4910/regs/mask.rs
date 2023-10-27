@@ -4,7 +4,7 @@
 
 use bilge::prelude::*;
 
-use super::AllegroRegister;
+use crate::regs::AllegroRegister;
 
 #[bitsize(13)]
 #[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
@@ -24,8 +24,8 @@ pub struct Mask {
     reserved: u1,
 }
 
-impl AllegroRegister for Mask {
-    fn value(&self) -> u16 {
+impl AllegroRegister<u13> for Mask {
+    fn get_value(&self) -> u16 {
         self.value.into()
     }
 

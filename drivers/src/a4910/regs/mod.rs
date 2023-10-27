@@ -10,11 +10,6 @@ use config::{Config0, Config1};
 use mask::Mask;
 use run::Run;
 
-pub trait AllegroRegister {
-    fn value(&self) -> u16;
-    fn set_value(&mut self, value: u13);
-}
-
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub enum Register {
     Config0,
@@ -44,7 +39,7 @@ pub struct RegisterSettings {
 }
 
 impl Index<Register> for RegisterSettings {
-    type Output = dyn AllegroRegister;
+    type Output = dyn crate::regs::AllegroRegister<u13>;
 
     fn index(&self, index: Register) -> &Self::Output {
         match index {

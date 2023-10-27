@@ -29,7 +29,7 @@ where
     }
 
     fn write_request(&self, reg: Register) -> u16 {
-        WriteRequest::new(self.regs[reg].value().into(), true, reg.into()).into()
+        WriteRequest::new(self.regs[reg].get_value().into(), true, reg.into()).into()
     }
 
     fn read_response(&mut self, reg: Register, msg: u16) {

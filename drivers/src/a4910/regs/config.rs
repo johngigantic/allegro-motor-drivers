@@ -2,8 +2,11 @@
 
 extern crate allegro_motor_derive;
 
-use allegro_motor_derive::Messages;
+use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
+
+use super::A4910Reg;
+use crate::regs::ConstantAddress;
 
 #[bitsize(6)]
 #[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]
@@ -76,15 +79,18 @@ impl Default for VdsThreshold {
 }
 
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, Messages)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, AllegroRegister)]
 pub struct Config0 {
     pub dt: DeadTime,
     pub bt: FaultBlankingTime,
 }
 
-// #[spi_derive(a4910)]
+impl ConstantAddress<A4910Reg> for Config0 {
+    const ADDRESS: A4910Reg = A4910Reg::Config0;
+}
+
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, Messages)]
+#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, AllegroRegister)]
 pub struct Config1 {
     pub vt: VdsThreshold,
     reserved: u1,
@@ -93,3 +99,9 @@ pub struct Config1 {
     pub esf: StopOnFault,
     pub csb: CurrentSenseBandwidth,
 }
+
+impl ConstantAddress<A4910Reg> for Config1 {
+    const ADDRESS: A4910Reg = A4910Reg::Config1;
+}
+
+pub type Config = (Config0, Config1);

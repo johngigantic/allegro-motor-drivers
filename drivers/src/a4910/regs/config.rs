@@ -5,8 +5,8 @@ extern crate allegro_motor_derive;
 use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
-use crate::regs::ConstantAddress;
 use super::A4910Reg;
+use crate::regs::ConstantAddress;
 
 #[bitsize(6)]
 #[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]

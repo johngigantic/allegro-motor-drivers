@@ -42,18 +42,15 @@ where
     }
 }
 
-
 mod tests {
     #[test]
     fn test_spi_derive() {
         use super::*;
         use embedded_hal_mock::spi::{Mock, Transaction};
 
-        let expected_transfers = [
-            Transaction::transfer(vec![1, 2], vec![3, 4])
-        ];
+        let expected_transfers = [Transaction::transfer(vec![1, 2], vec![3, 4])];
         let spi_device = Mock::new(&expected_transfers);
-        
+
         let a4910 = A4910::new(spi_device);
 
         assert_eq!(a4910.read_request(A4910Reg::Config0), 0b00_0_0000000000000);
@@ -66,5 +63,4 @@ mod tests {
         // c1.read_response(0b00_0_0_0_11_1_1_1011111);
         // assert_eq!(c1.vt(), u7::new(0b1011111).into());
     }
-
 }

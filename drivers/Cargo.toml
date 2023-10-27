@@ -27,5 +27,12 @@ allegro-motor-derive = { version = "0.1.0", path = "../derive" }
 # It has a bug in v1.0.0, but bilge permissively allows v1.0.0 as the minimum dependency.
 # The statement here is to restrict proc-macro-error to v1.0.4 at minimum.
 proc-macro-error = "1.0.4"
-embedded-hal = "1.0.0-rc.1"
+
+# TODO: update embedded-hal to 1.0.0-rc.1
+# embedded-hal-mock is currently unstable on its 1-alpha branch.
+# That branch currently has an out-of-date dependency on embedded-hal 1.0.0-alpha.10.
+embedded-hal = "1.0.0-alpha.10"
 arbitrary-int = "1.2.6"
+
+[dev-dependencies]
+embedded-hal-mock = { git = "https://github.com/dbrgn/embedded-hal-mock", branch = "1-alpha" }

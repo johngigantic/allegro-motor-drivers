@@ -25,11 +25,11 @@ where
     }
 
     fn read_request(&self, reg: Register) -> u16 {
-        ReadRequest::new(reg.into(), false).into()
+        ReadRequest::new(false, reg.into()).into()
     }
 
     fn write_request(&self, reg: Register) -> u16 {
-        WriteRequest::new(reg.into(), true, self.regs[reg].value().into()).into()
+        WriteRequest::new(self.regs[reg].value().into(), true, reg.into()).into()
     }
 
     fn read_response(&mut self, reg: Register, msg: u16) {
@@ -40,4 +40,31 @@ where
     fn write_response(&mut self, msg: u16) {
         self.status = WriteResponse::from(msg);
     }
+}
+
+
+mod tests {
+    #[test]
+    fn test_spi_derive() {
+        use super::*;
+        use embedded_hal_mock::spi::{Mock, Transaction};
+
+        let expected_transfers = [
+            Transaction::transfer(vec![1, 2], vec![3, 4])
+        ];
+        let spi_device = Mock::new(&expected_transfers);
+        
+        let a4910 = A4910::new(spi_device);
+
+        assert_eq!(a4910.read_request(Register::Config0), 0b00_0_0000000000000);
+        assert_eq!(a4910.read_request(Register::Config1), 0b01_0_0000000000000);
+
+        // assert_eq!(c1.write_request(), 0b01_1_1_1_00_0_0_0100000);
+
+        // assert_eq!(c1.read_request(), 0b01_0_0000000000000);
+
+        // c1.read_response(0b00_0_0_0_11_1_1_1011111);
+        // assert_eq!(c1.vt(), u7::new(0b1011111).into());
+    }
+
 }

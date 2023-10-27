@@ -7,25 +7,25 @@ use super::regs::diagnostic::{DiagnosticData, DiagnosticHeader};
 #[bitsize(16)]
 #[derive(DebugBits, DefaultBits, PartialEq, FromBits)]
 pub struct ReadRequest {
-    addr: u2,
-    write_read: bool,
     reserved: u13,
+    write_read: bool,
+    addr: u2,
 }
 
 #[bitsize(16)]
 #[derive(DebugBits, DefaultBits, PartialEq, FromBits)]
 pub struct ReadResponse {
-    pub status: DiagnosticHeader,
-    write_read: bool,
     pub register: u13,
+    write_read: bool,
+    pub status: DiagnosticHeader,
 }
 
 #[bitsize(16)]
 #[derive(DebugBits, DefaultBits, PartialEq, FromBits)]
 pub struct WriteRequest {
-    addr: u2,
-    write_read: bool,
     register: u13,
+    write_read: bool,
+    addr: u2,
 }
 
 #[bitsize(16)]

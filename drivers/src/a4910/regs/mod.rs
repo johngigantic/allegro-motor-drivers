@@ -66,3 +66,5 @@ impl IndexMut<Register> for RegisterSettings {
         }
     }
 }
+
+impl crate::regs::RegisterSettings<Register> for RegisterSettings {}

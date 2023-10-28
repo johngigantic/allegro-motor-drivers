@@ -5,8 +5,8 @@ use bilge::prelude::*;
 #[bitsize(2)]
 #[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
 pub struct DiagnosticHeader {
-    pub ff: bool,
     pub por: bool,
+    pub ff: bool,
 }
 
 #[bitsize(12)]

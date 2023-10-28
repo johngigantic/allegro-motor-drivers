@@ -1,4 +1,4 @@
-//! Run register
+//! Run register settings
 
 use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;

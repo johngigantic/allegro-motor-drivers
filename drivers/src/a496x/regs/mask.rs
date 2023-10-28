@@ -1,4 +1,4 @@
-//! Mask register contents
+//! Mask register settings
 
 use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;

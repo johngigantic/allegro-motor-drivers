@@ -1,3 +1,5 @@
+//! A4962 and A4963 serial interface registers.
+
 use core::ops::{Index, IndexMut};
 use bilge::prelude::*;
 
@@ -9,6 +11,9 @@ pub mod run;
 use config::Config;
 use mask::Mask;
 use run::Run;
+
+pub type A4963Reg = A4962Reg;
+pub type A4963Registers = A4962Registers;
 
 #[derive(Debug, PartialEq, Clone, Copy)]
 pub enum A4962Reg {

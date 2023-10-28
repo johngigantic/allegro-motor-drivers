@@ -1,4 +1,6 @@
-//! Diagnostic register
+//! Diagnostic register settings
+//! 
+//! The diagnostics that can be raised are identical to the mask register.
 
 use bilge::prelude::*;
 

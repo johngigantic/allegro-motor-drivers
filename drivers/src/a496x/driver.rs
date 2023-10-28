@@ -1,4 +1,4 @@
-//! Main Driver for A4962
+//! Main Driver for A4962 & A4963 Sensorless BLDC Controllers
 
 use embedded_hal::spi::SpiDevice;
 
@@ -6,6 +6,8 @@ use super::{
     io::{Diagnostics, ReadRequest, ReadResponse, WriteRequest, WriteResponse},
     regs::{A4962Reg, A4962Registers},
 };
+
+pub type A4963<SPI> = A4962<SPI>;
 pub struct A4962<SPI> {
     spi: SPI,
     pub regs: A4962Registers,

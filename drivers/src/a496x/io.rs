@@ -1,4 +1,4 @@
-//! SPI Message encodings for the a4963;
+//! SPI Message encodings for the A4962 & A4963 chips.
 
 use bilge::prelude::*;
 

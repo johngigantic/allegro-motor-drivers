@@ -1,5 +1,6 @@
 //! A4962 configuration registers
 
+use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
 #[bitsize(2)]
@@ -225,7 +226,7 @@ pub struct MaximumSpeed(u3);
 impl Default for MaximumSpeed {
     fn default() -> Self {
         Self {
-            value: u3::new(0b101),
+            value: u3::new(0b111),
         }
     }
 }
@@ -242,6 +243,7 @@ impl Default for PhaseAdvance {
     }
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(12)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config0 {
@@ -250,6 +252,7 @@ pub struct Config0 {
     pub rm: RecirculationMode,
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(12)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config1 {
@@ -260,6 +263,7 @@ pub struct Config1 {
     pub pfd: PercentFastDecay,
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(12)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config2 {
@@ -269,6 +273,7 @@ pub struct Config2 {
     pub cp: PositionProportionalGain,
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(12)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config3 {
@@ -277,6 +282,7 @@ pub struct Config3 {
     pub ci: PositionIntegralGain,
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(12)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config4 {
@@ -285,6 +291,7 @@ pub struct Config4 {
     pub sp: SpeedProportionalGain,
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(12)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Config5 {
@@ -293,3 +300,5 @@ pub struct Config5 {
     pub spo: SpeedOutputSelection,
     pub si: SpeedIntegralGain,
 }
+
+pub type Config = (Config0, Config1, Config2, Config3, Config4, Config5);

@@ -4,11 +4,11 @@ use embedded_hal::spi::SpiDevice;
 
 use super::{
     io::{Diagnostics, ReadRequest, ReadResponse, WriteRequest, WriteResponse},
-    regs::{A4910Reg, RegisterSettings},
+    regs::{A4910Reg, A4910Registers},
 };
 pub struct A4910<SPI> {
     spi: SPI,
-    pub regs: RegisterSettings,
+    pub regs: A4910Registers,
     pub status: Diagnostics,
 }
 
@@ -20,7 +20,7 @@ where
     pub fn new(spi: SPI) -> Self {
         Self {
             spi,
-            regs: RegisterSettings::default(),
+            regs: A4910Registers::default(),
             status: Diagnostics::default(),
         }
     }
@@ -70,11 +70,13 @@ where
     }
 }
 
-#[allow(clippy::unusual_byte_groupings)]
 mod tests {
+    #![allow(clippy::unusual_byte_groupings)]
+
     #[test]
     fn test_spi_derive() {
         use super::*;
+        use bilge::prelude::*;
         use embedded_hal_mock::spi::{Mock, Transaction};
 
         let expected: [&Transaction; 0] = [];
@@ -97,6 +99,6 @@ mod tests {
 
         let config1_write_resp = [0b00_0_0_0_11_1, 0b1_1011111];
         a4910.read_response(A4910Reg::Config1, config1_write_resp);
-        assert_eq!(a4910.regs.cfg.1.vt(), bilge::arbitrary_int::u7::new(0b1011111).into());
+        assert_eq!(a4910.regs.cfg.1.vt(), u7::new(0b101_1111).into());
     }
 }

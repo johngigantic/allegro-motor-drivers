@@ -1,7 +1,9 @@
 //! Mask register contents
 
+use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
+#[derive(AllegroRegister)]
 #[bitsize(12)]
 #[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
 pub struct Mask {

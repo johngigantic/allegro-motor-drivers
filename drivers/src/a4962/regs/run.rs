@@ -1,5 +1,6 @@
 //! Run register
 
+use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
 #[bitsize(2)]
@@ -64,6 +65,7 @@ pub enum RunEnable {
     Start,
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(12)]
 #[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
 pub struct Run {

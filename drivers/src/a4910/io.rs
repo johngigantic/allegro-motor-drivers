@@ -9,7 +9,7 @@ use super::regs::diagnostic::{DiagnosticData, DiagnosticHeader};
 pub struct ReadRequest {
     reserved: u13,
     write_read: bool,
-    addr: u2,
+    address: u2,
 }
 
 #[bitsize(16)]
@@ -25,7 +25,7 @@ pub struct ReadResponse {
 pub struct WriteRequest {
     register: u13,
     write_read: bool,
-    addr: u2,
+    address: u2,
 }
 
 #[bitsize(16)]

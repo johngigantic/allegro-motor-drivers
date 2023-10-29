@@ -4,7 +4,7 @@ use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
 #[bitsize(2)]
-#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum SenseAmpGain {
     #[default]
     Gain2f5,

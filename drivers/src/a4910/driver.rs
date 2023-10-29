@@ -77,7 +77,7 @@ mod tests {
     fn test_spi_derive() {
         use super::*;
         use bilge::prelude::*;
-        use embedded_hal_mock::spi::{Mock, Transaction};
+        use embedded_hal_mock::eh1::spi::{Mock, Transaction};
 
         let expected: [&Transaction; 0] = [];
         let mut a4910 = A4910::new(Mock::new(expected));
@@ -100,5 +100,7 @@ mod tests {
         let config1_write_resp = [0b00_0_0_0_11_1, 0b1_1011111];
         a4910.read_response(A4910Reg::Config1, config1_write_resp);
         assert_eq!(a4910.regs.cfg.1.vt(), u7::new(0b101_1111).into());
+
+        a4910.spi.done();
     }
 }

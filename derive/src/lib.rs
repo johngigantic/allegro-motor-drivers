@@ -37,19 +37,18 @@ use syn::{parse_macro_input, DeriveInput};
 ///
 /// # Panics
 /// Panics on a Lex Error if parsing fails.
-/// 
+///
 #[proc_macro_derive(AllegroRegister)]
 pub fn allegro_derive(item: TokenStream) -> TokenStream {
     let DeriveInput { ident, attrs, .. } = parse_macro_input!(item as DeriveInput);
 
     let bitsize_assignment_function: proc_macro2::TokenStream = match analyze_bitsize(&attrs) {
-        Ok(bitsize) => {
-            format!(
+        Ok(bitsize) => format!(
             "bilge::arbitrary_int::u{}::new_unchecked(value)",
-            proc_macro2::Literal::u16_unsuffixed(bitsize))
-            .parse()
-            .unwrap()
-        },
+            proc_macro2::Literal::u16_unsuffixed(bitsize)
+        )
+        .parse()
+        .unwrap(),
         Err(error_msg) => return error_msg.into_compile_error().into(),
     };
 

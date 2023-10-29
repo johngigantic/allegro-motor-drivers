@@ -1,9 +1,10 @@
-//! Run register
+//! Run register settings
 
+use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
 #[bitsize(2)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum MotorControlMode {
     #[default]
     IndirectSpeed,
@@ -13,7 +14,7 @@ pub enum MotorControlMode {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum StopOnFail {
     #[default]
     NoStop,
@@ -21,7 +22,7 @@ pub enum StopOnFail {
 }
 
 #[bitsize(5)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct DutyCycleControl(u5);
 
 impl Default for DutyCycleControl {
@@ -33,7 +34,7 @@ impl Default for DutyCycleControl {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum RestartControl {
     NoRestart,
     #[default]
@@ -41,7 +42,7 @@ pub enum RestartControl {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum Brake {
     #[default]
     Disable,
@@ -49,7 +50,7 @@ pub enum Brake {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum Direction {
     #[default]
     Forward,
@@ -57,15 +58,16 @@ pub enum Direction {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum RunEnable {
     Disable,
     #[default]
     Start,
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(12)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Run {
     pub run: RunEnable,
     pub dir: Direction,

@@ -18,9 +18,9 @@ categories = ["no-std", "embedded", "hardware-support", "science::robotics"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-bilge = "0.2.0"
 allegro-motor-derive = { version = "0.1.0", path = "../derive" }
-
+bilge = "0.2.0"
+embedded-hal = "^1.0.0-rc.1"
 
 # TODO: remove proc-macro-error from dependencies.
 # proc-macro-error is not a direct dependency of this crate, but a dependency of bilge.
@@ -28,11 +28,7 @@ allegro-motor-derive = { version = "0.1.0", path = "../derive" }
 # The statement here is to restrict proc-macro-error to v1.0.4 at minimum.
 proc-macro-error = "1.0.4"
 
-# TODO: update embedded-hal to 1.0.0-rc.1
-# embedded-hal-mock is currently unstable on its 1-alpha branch.
-# That branch currently has an out-of-date dependency on embedded-hal 1.0.0-alpha.10.
-embedded-hal = "1.0.0-alpha.10"
-arbitrary-int = "1.2.6"
-
+# TODO: update embedded-hal-mock to main branch when the newAM::eh1-rc.1 pull request is resolved.
+# The main branch currently has an out-of-date dependency on embedded-hal 1.0.0-alpha.10.
 [dev-dependencies]
-embedded-hal-mock = { git = "https://github.com/dbrgn/embedded-hal-mock", branch = "1-alpha" }
+embedded-hal-mock = { git = "https://github.com/newAM/embedded-hal-mock", branch = "eh1-rc.1", features = ['eh1'] }

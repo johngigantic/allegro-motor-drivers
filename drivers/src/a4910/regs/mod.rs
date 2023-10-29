@@ -1,3 +1,5 @@
+//! A4910 Register definitions and layout
+
 use bilge::prelude::*;
 use core::ops::{Index, IndexMut};
 
@@ -31,14 +33,14 @@ impl From<A4910Reg> for u2 {
 }
 
 #[derive(Debug, Default)]
-pub struct RegisterSettings {
+pub struct A4910Registers {
     pub cfg: Config,
     pub mask: Mask,
     pub run: Run,
 }
 
-impl Index<A4910Reg> for RegisterSettings {
-    type Output = dyn crate::regs::AllegroRegister<u13>;
+impl Index<A4910Reg> for A4910Registers {
+    type Output = dyn crate::regs::AllegroRegister;
 
     fn index(&self, index: A4910Reg) -> &Self::Output {
         match index {
@@ -50,7 +52,7 @@ impl Index<A4910Reg> for RegisterSettings {
     }
 }
 
-impl IndexMut<A4910Reg> for RegisterSettings {
+impl IndexMut<A4910Reg> for A4910Registers {
     fn index_mut(&mut self, index: A4910Reg) -> &mut Self::Output {
         match index {
             A4910Reg::Config0 => &mut self.cfg.0,
@@ -61,4 +63,17 @@ impl IndexMut<A4910Reg> for RegisterSettings {
     }
 }
 
-impl crate::regs::RegisterSettings<A4910Reg> for RegisterSettings {}
+impl crate::regs::RegisterSettings<A4910Reg> for A4910Registers {}
+
+mod tests {
+    #[test]
+    fn test_default_values() {
+        use super::*;
+
+        let regs = A4910Registers::default();
+        assert_eq!(regs[A4910Reg::Config0].get_value(), 0b1_0000_0010_0000);
+        assert_eq!(regs[A4910Reg::Config1].get_value(), 0b1_1000_0010_0000);
+        assert_eq!(regs[A4910Reg::Mask].get_value(), 0b0_0000_0000_0000);
+        assert_eq!(regs[A4910Reg::Run].get_value(), 0b0_0000_0000_0000);
+    }
+}

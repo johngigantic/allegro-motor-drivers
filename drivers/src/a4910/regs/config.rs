@@ -1,15 +1,10 @@
 //! Configuration registers 0 and 1
 
-extern crate allegro_motor_derive;
-
 use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
-use super::A4910Reg;
-use crate::regs::ConstantAddress;
-
 #[bitsize(6)]
-#[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct FaultBlankingTime(u6);
 
 impl Default for FaultBlankingTime {
@@ -21,7 +16,7 @@ impl Default for FaultBlankingTime {
 }
 
 #[bitsize(7)]
-#[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct DeadTime(u7);
 
 impl Default for DeadTime {
@@ -33,7 +28,7 @@ impl Default for DeadTime {
 }
 
 #[bitsize(1)]
-#[derive(Clone, Copy, Debug, PartialEq, Default, FromBits)]
+#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
 pub enum CurrentSenseBandwidth {
     ReducedBandwidth,
     #[default]
@@ -41,7 +36,7 @@ pub enum CurrentSenseBandwidth {
 }
 
 #[bitsize(1)]
-#[derive(Clone, Copy, Debug, PartialEq, Default, FromBits)]
+#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
 pub enum StopOnFault {
     Disabled,
     #[default]
@@ -49,7 +44,7 @@ pub enum StopOnFault {
 }
 
 #[bitsize(2)]
-#[derive(Clone, Copy, Debug, PartialEq, Default, FromBits)]
+#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
 pub enum DiagOutput {
     #[default]
     GeneralFault,
@@ -59,7 +54,7 @@ pub enum DiagOutput {
 }
 
 #[bitsize(1)]
-#[derive(Clone, Copy, Debug, PartialEq, Default, FromBits)]
+#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
 pub enum DisableBootstrapManagement {
     #[default]
     Active,
@@ -67,7 +62,7 @@ pub enum DisableBootstrapManagement {
 }
 
 #[bitsize(7)]
-#[derive(Clone, Copy, DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct VdsThreshold(u7);
 
 impl Default for VdsThreshold {
@@ -78,19 +73,17 @@ impl Default for VdsThreshold {
     }
 }
 
+#[derive(AllegroRegister)]
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, AllegroRegister)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Config0 {
     pub dt: DeadTime,
     pub bt: FaultBlankingTime,
 }
 
-impl ConstantAddress<A4910Reg> for Config0 {
-    const ADDRESS: A4910Reg = A4910Reg::Config0;
-}
-
+#[derive(AllegroRegister)]
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits, AllegroRegister)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Config1 {
     pub vt: VdsThreshold,
     reserved: u1,
@@ -98,10 +91,6 @@ pub struct Config1 {
     pub diag: DiagOutput,
     pub esf: StopOnFault,
     pub csb: CurrentSenseBandwidth,
-}
-
-impl ConstantAddress<A4910Reg> for Config1 {
-    const ADDRESS: A4910Reg = A4910Reg::Config1;
 }
 
 pub type Config = (Config0, Config1);

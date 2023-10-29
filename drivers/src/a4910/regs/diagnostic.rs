@@ -3,15 +3,15 @@
 use bilge::prelude::*;
 
 #[bitsize(2)]
-#[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
-pub struct DiagnosticHeader {
-    pub ff: bool,
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
+pub struct Header {
     pub por: bool,
+    pub ff: bool,
 }
 
 #[bitsize(12)]
-#[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
-pub struct DiagnosticData {
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
+pub struct Data {
     pub cl: bool,
     pub ch: bool,
     pub bl: bool,

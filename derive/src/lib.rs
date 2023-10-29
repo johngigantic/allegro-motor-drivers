@@ -54,7 +54,7 @@ pub fn allegro_derive(item: TokenStream) -> TokenStream {
 
     quote! {
         impl crate::regs::AllegroRegister for #ident {
-            fn get_value(&self) -> u16 {
+            fn value(&self) -> u16 {
                 self.value.into()
             }
 

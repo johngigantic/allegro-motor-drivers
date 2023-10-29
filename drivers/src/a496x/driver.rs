@@ -56,7 +56,7 @@ where
 
     fn write_request(&self, register: A4962Reg) -> [u8; 2] {
         let reg_contents =
-            unsafe { bilge::arbitrary_int::u12::new_unchecked(self.regs[register].get_value()) };
+            unsafe { bilge::arbitrary_int::u12::new_unchecked(self.regs[register].value()) };
         let request: u16 = WriteRequest::new(reg_contents, true, register.into()).into();
         request.to_be_bytes()
     }

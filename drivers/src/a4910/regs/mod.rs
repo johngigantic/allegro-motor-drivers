@@ -71,9 +71,9 @@ mod tests {
         use super::*;
 
         let regs = A4910Registers::default();
-        assert_eq!(regs[A4910Reg::Config0].get_value(), 0b1_0000_0010_0000);
-        assert_eq!(regs[A4910Reg::Config1].get_value(), 0b1_1000_0010_0000);
-        assert_eq!(regs[A4910Reg::Mask].get_value(), 0b0_0000_0000_0000);
-        assert_eq!(regs[A4910Reg::Run].get_value(), 0b0_0000_0000_0000);
+        assert_eq!(regs[A4910Reg::Config0].value(), 0b1_0000_0010_0000);
+        assert_eq!(regs[A4910Reg::Config1].value(), 0b1_1000_0010_0000);
+        assert_eq!(regs[A4910Reg::Mask].value(), 0b0_0000_0000_0000);
+        assert_eq!(regs[A4910Reg::Run].value(), 0b0_0000_0000_0000);
     }
 }

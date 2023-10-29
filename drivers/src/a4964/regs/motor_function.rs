@@ -1,52 +1,48 @@
-//! Run register settings
+//! Motor function register
 
 use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
+#[bitsize(1)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
+pub enum LinState {
+    #[default]
+    Standby,
+    Active,
+}
+
+#[bitsize(1)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
+pub enum SleepTransition {
+    #[default]
+    NoChange,
+    EnterSleepStateIfEnabled,
+}
+
 #[bitsize(2)]
 #[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
-pub enum MotorControlMode {
+pub enum Overmodulation {
     #[default]
-    IndirectSpeed,
-    DirectSpeed,
-    ClosedLoopCurrent,
-    ClosedLoopSpeed,
+    None,
+    Modulation112f5,
+    Modulation125,
+    Modulation150,
 }
 
 #[bitsize(1)]
 #[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
-pub enum StopOnFail {
+pub enum DriveMode {
     #[default]
-    NoStop,
-    Stop,
-}
-
-#[bitsize(5)]
-#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
-pub struct DutyCycleControl(u5);
-
-impl Default for DutyCycleControl {
-    fn default() -> Self {
-        Self {
-            value: u5::new(0b0_0000),
-        }
-    }
+    Sinusoidal,
+    Trapezoidal,
 }
 
 #[bitsize(1)]
 #[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
-pub enum RestartControl {
-    NoRestart,
+pub enum BrakeMode {
     #[default]
-    AllowRestart,
-}
-
-#[bitsize(1)]
-#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
-pub enum Brake {
-    #[default]
-    Disable,
-    Start,
+    BrakeDisabled,
+    BrakeEnabled,
 }
 
 #[bitsize(1)]
@@ -59,21 +55,22 @@ pub enum Direction {
 
 #[bitsize(1)]
 #[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
-pub enum RunEnable {
-    Disable,
+pub enum MotorRunningStatus {
     #[default]
-    Start,
+    Disable,
+    Run,
 }
 
 #[derive(AllegroRegister)]
-#[bitsize(12)]
+#[bitsize(9)]
 #[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
-pub struct Run {
-    pub run: RunEnable,
+pub struct MotorFunction {
+    reserved: u1,
+    pub len: LinState,
+    pub gts: SleepTransition,
+    pub ovm: Overmodulation,
+    pub drm: DriveMode,
+    pub brk: BrakeMode,
     pub dir: Direction,
-    pub brk: Brake,
-    pub rsc: RestartControl,
-    pub di: DutyCycleControl,
-    pub esf: StopOnFail,
-    pub cm: MotorControlMode,
+    pub run: MotorRunningStatus,
 }

@@ -5,7 +5,7 @@ use bilge::prelude::*;
 
 #[derive(AllegroRegister)]
 #[bitsize(12)]
-#[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Mask {
     pub cl: bool,
     pub ch: bool,

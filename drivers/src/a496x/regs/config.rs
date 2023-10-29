@@ -4,7 +4,7 @@ use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
 #[bitsize(2)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum RecirculationMode {
     #[default]
     Auto,
@@ -14,7 +14,7 @@ pub enum RecirculationMode {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct BlankTime(u4);
 
 impl Default for BlankTime {
@@ -26,7 +26,7 @@ impl Default for BlankTime {
 }
 
 #[bitsize(6)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct DeadTime(u6);
 
 impl Default for DeadTime {
@@ -38,7 +38,7 @@ impl Default for DeadTime {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum PercentFastDecay {
     #[default]
     Pct12F5,
@@ -46,7 +46,7 @@ pub enum PercentFastDecay {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum InvertPwmInput {
     #[default]
     NormalTrueLogic,
@@ -54,7 +54,7 @@ pub enum InvertPwmInput {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct CurrentSenseThreshold(u4);
 
 impl Default for CurrentSenseThreshold {
@@ -66,7 +66,7 @@ impl Default for CurrentSenseThreshold {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum BemfTimeQualifier {
     #[default]
     DebounceTimer,
@@ -74,7 +74,7 @@ pub enum BemfTimeQualifier {
 }
 
 #[bitsize(5)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct VdsThreshold(u5);
 
 impl Default for VdsThreshold {
@@ -86,7 +86,7 @@ impl Default for VdsThreshold {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct PositionProportionalGain(u4);
 
 impl Default for PositionProportionalGain {
@@ -98,7 +98,7 @@ impl Default for PositionProportionalGain {
 }
 
 #[bitsize(2)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum OverspeedLimitRatio {
     Pct100,
     Pct125,
@@ -108,7 +108,7 @@ pub enum OverspeedLimitRatio {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum DegaussCompensation {
     #[default]
     Off,
@@ -116,7 +116,7 @@ pub enum DegaussCompensation {
 }
 
 #[bitsize(5)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct FixedOffTime(u5);
 
 impl Default for FixedOffTime {
@@ -128,7 +128,7 @@ impl Default for FixedOffTime {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct PositionIntegralGain(u4);
 
 impl Default for PositionIntegralGain {
@@ -140,7 +140,7 @@ impl Default for PositionIntegralGain {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct HoldPwmDutyCycle(u4);
 
 impl Default for HoldPwmDutyCycle {
@@ -152,7 +152,7 @@ impl Default for HoldPwmDutyCycle {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct HoldTime(u4);
 
 impl Default for HoldTime {
@@ -164,7 +164,7 @@ impl Default for HoldTime {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct SpeedProportionalGain(u4);
 
 impl Default for SpeedProportionalGain {
@@ -176,7 +176,7 @@ impl Default for SpeedProportionalGain {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct ForcedPwmDutyCycle(u4);
 
 impl Default for ForcedPwmDutyCycle {
@@ -188,7 +188,7 @@ impl Default for ForcedPwmDutyCycle {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct StartSpeed(u4);
 
 impl Default for StartSpeed {
@@ -200,7 +200,7 @@ impl Default for StartSpeed {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct SpeedIntegralGain(u4);
 
 impl Default for SpeedIntegralGain {
@@ -212,7 +212,7 @@ impl Default for SpeedIntegralGain {
 }
 
 #[bitsize(1)]
-#[derive(Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum SpeedOutputSelection {
     #[default]
     FG,
@@ -220,7 +220,7 @@ pub enum SpeedOutputSelection {
 }
 
 #[bitsize(3)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct MaximumSpeed(u3);
 
 impl Default for MaximumSpeed {
@@ -232,7 +232,7 @@ impl Default for MaximumSpeed {
 }
 
 #[bitsize(4)]
-#[derive(DebugBits, PartialEq, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, FromBits)]
 pub struct PhaseAdvance(u4);
 
 impl Default for PhaseAdvance {
@@ -245,7 +245,7 @@ impl Default for PhaseAdvance {
 
 #[derive(AllegroRegister)]
 #[bitsize(12)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Config0 {
     pub dt: DeadTime,
     pub bt: BlankTime,
@@ -254,7 +254,7 @@ pub struct Config0 {
 
 #[derive(AllegroRegister)]
 #[bitsize(12)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Config1 {
     pub vt: VdsThreshold,
     pub vdq: BemfTimeQualifier,
@@ -265,7 +265,7 @@ pub struct Config1 {
 
 #[derive(AllegroRegister)]
 #[bitsize(12)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Config2 {
     pub pw: FixedOffTime,
     pub dgc: DegaussCompensation,
@@ -275,7 +275,7 @@ pub struct Config2 {
 
 #[derive(AllegroRegister)]
 #[bitsize(12)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Config3 {
     pub ht: HoldTime,
     pub hd: HoldPwmDutyCycle,
@@ -284,7 +284,7 @@ pub struct Config3 {
 
 #[derive(AllegroRegister)]
 #[bitsize(12)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Config4 {
     pub ss: StartSpeed,
     pub sd: ForcedPwmDutyCycle,
@@ -293,7 +293,7 @@ pub struct Config4 {
 
 #[derive(AllegroRegister)]
 #[bitsize(12)]
-#[derive(PartialEq, Clone, Copy, DebugBits, DefaultBits, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Config5 {
     pub pa: PhaseAdvance,
     pub smx: MaximumSpeed,

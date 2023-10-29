@@ -1,3 +1,5 @@
+//! A4910 Register definitions and layout
+
 use bilge::prelude::*;
 use core::ops::{Index, IndexMut};
 
@@ -38,7 +40,7 @@ pub struct A4910Registers {
 }
 
 impl Index<A4910Reg> for A4910Registers {
-    type Output = dyn crate::regs::AllegroRegister<u13>;
+    type Output = dyn crate::regs::AllegroRegister;
 
     fn index(&self, index: A4910Reg) -> &Self::Output {
         match index {
@@ -69,9 +71,9 @@ mod tests {
         use super::*;
 
         let regs = A4910Registers::default();
-        assert_eq!(regs[A4910Reg::Config0].get_value(), 0b0001_0000_0010_0000);
-        assert_eq!(regs[A4910Reg::Config1].get_value(), 0b0001_1000_0010_0000);
-        assert_eq!(regs[A4910Reg::Mask].get_value(), 0b0000_0000_0000_0000);
-        assert_eq!(regs[A4910Reg::Run].get_value(), 0b0000_0000_0000_0000);
+        assert_eq!(regs[A4910Reg::Config0].get_value(), 0b1_0000_0010_0000);
+        assert_eq!(regs[A4910Reg::Config1].get_value(), 0b1_1000_0010_0000);
+        assert_eq!(regs[A4910Reg::Mask].get_value(), 0b0_0000_0000_0000);
+        assert_eq!(regs[A4910Reg::Run].get_value(), 0b0_0000_0000_0000);
     }
 }

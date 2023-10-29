@@ -35,23 +35,32 @@ use syn::{parse_macro_input, DeriveInput};
 /// }
 /// ```
 ///
+/// # Panics
+/// Panics on a Lex Error if parsing fails.
+/// 
 #[proc_macro_derive(AllegroRegister)]
 pub fn allegro_derive(item: TokenStream) -> TokenStream {
     let DeriveInput { ident, attrs, .. } = parse_macro_input!(item as DeriveInput);
 
-    let bitsize = match analyze_bitsize(&attrs) {
-        Ok(bitsize) => proc_macro2::Literal::u16_unsuffixed(bitsize),
+    let bitsize_assignment_function: proc_macro2::TokenStream = match analyze_bitsize(&attrs) {
+        Ok(bitsize) => {
+            format!(
+            "bilge::arbitrary_int::u{}::new_unchecked(value)",
+            proc_macro2::Literal::u16_unsuffixed(bitsize))
+            .parse()
+            .unwrap()
+        },
         Err(error_msg) => return error_msg.into_compile_error().into(),
     };
 
     quote! {
-        impl crate::regs::AllegroRegister<bilge::prelude::UInt<u16, #bitsize>> for #ident {
+        impl crate::regs::AllegroRegister for #ident {
             fn get_value(&self) -> u16 {
                 self.value.into()
             }
 
-            fn set_value(&mut self, value: bilge::prelude::UInt<u16, #bitsize>) {
-                self.value = value;
+            fn set_value(&mut self, value: u16) {
+                unsafe { self.value = #bitsize_assignment_function };
             }
         }
     }

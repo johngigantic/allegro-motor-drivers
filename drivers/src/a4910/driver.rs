@@ -61,7 +61,7 @@ where
 
     fn read_response(&mut self, register: A4910Reg, message: [u8; 2]) {
         let response = ReadResponse::from(u16::from_be_bytes(message));
-        self.regs[register].set_value(response.register());
+        self.regs[register].set_value(response.register().into());
         self.status.set_header(response.status());
     }
 

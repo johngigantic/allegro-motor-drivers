@@ -4,11 +4,7 @@ use core::ops::IndexMut;
 
 pub trait RegisterSettings<Register>: IndexMut<Register> {}
 
-pub trait ConstantAddress<Register> {
-    const ADDRESS: Register;
-}
-
-pub trait AllegroRegister<Number> {
+pub trait AllegroRegister {
     fn get_value(&self) -> u16;
-    fn set_value(&mut self, value: Number);
+    fn set_value(&mut self, value: u16);
 }

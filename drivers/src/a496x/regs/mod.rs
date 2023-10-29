@@ -1,7 +1,7 @@
-//! A4962 and A4963 serial interface registers.
+//! A4962 and A4963 register definitions and layout.
 
-use core::ops::{Index, IndexMut};
 use bilge::prelude::*;
+use core::ops::{Index, IndexMut};
 
 pub mod config;
 pub mod diagnostic;
@@ -47,7 +47,7 @@ pub struct A4962Registers {
 }
 
 impl Index<A4962Reg> for A4962Registers {
-    type Output = dyn crate::regs::AllegroRegister<u12>;
+    type Output = dyn crate::regs::AllegroRegister;
 
     fn index(&self, index: A4962Reg) -> &Self::Output {
         match index {
@@ -84,13 +84,13 @@ mod tests {
         use super::*;
 
         let regs = A4962Registers::default();
-        assert_eq!(regs[A4962Reg::Config0].get_value(), 0b0000_0010_0001_0100);
-        assert_eq!(regs[A4962Reg::Config1].get_value(), 0b0000_0011_1101_1111);
-        assert_eq!(regs[A4962Reg::Config2].get_value(), 0b0000_0111_1001_0011);
-        assert_eq!(regs[A4962Reg::Config3].get_value(), 0b0000_0111_0101_0010);
-        assert_eq!(regs[A4962Reg::Config4].get_value(), 0b0000_0111_0111_0011);
-        assert_eq!(regs[A4962Reg::Config5].get_value(), 0b0000_0111_0111_1000);
-        assert_eq!(regs[A4962Reg::Mask].get_value(), 0b0000_0000_0000_0000);
-        assert_eq!(regs[A4962Reg::Run].get_value(), 0b0000_0000_0000_1001);
+        assert_eq!(regs[A4962Reg::Config0].get_value(), 0b0010_0001_0100);
+        assert_eq!(regs[A4962Reg::Config1].get_value(), 0b0011_1101_1111);
+        assert_eq!(regs[A4962Reg::Config2].get_value(), 0b0111_1001_0011);
+        assert_eq!(regs[A4962Reg::Config3].get_value(), 0b0111_0101_0010);
+        assert_eq!(regs[A4962Reg::Config4].get_value(), 0b0111_0111_0011);
+        assert_eq!(regs[A4962Reg::Config5].get_value(), 0b0111_0111_1000);
+        assert_eq!(regs[A4962Reg::Mask].get_value(), 0b0000_0000_0000);
+        assert_eq!(regs[A4962Reg::Run].get_value(), 0b0000_0000_1001);
     }
 }

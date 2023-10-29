@@ -5,12 +5,9 @@
 use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
-use super::A4910Reg;
-use crate::regs::ConstantAddress;
-
 #[derive(AllegroRegister)]
 #[bitsize(13)]
-#[derive(PartialEq, Clone, Copy, DebugBits, Default, FromBits)]
+#[derive(PartialEq, Copy, Clone, DebugBits, DefaultBits, FromBits)]
 pub struct Mask {
     pub cl: bool,
     pub ch: bool,
@@ -25,8 +22,4 @@ pub struct Mask {
     pub ot: bool,
     pub tw: bool,
     reserved: u1,
-}
-
-impl ConstantAddress<A4910Reg> for Mask {
-    const ADDRESS: A4910Reg = A4910Reg::Mask;
 }

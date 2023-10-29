@@ -13,3 +13,4 @@ pub mod amt49107;
 
 pub mod io;
 pub mod regs;
+pub mod error;

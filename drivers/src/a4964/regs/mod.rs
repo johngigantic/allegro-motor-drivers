@@ -7,6 +7,7 @@ pub mod bemf;
 pub mod bridge;
 pub mod commutation;
 pub mod current_limit;
+pub mod diagnostic;
 pub mod gate_drive;
 pub mod mask;
 pub mod motor_function;

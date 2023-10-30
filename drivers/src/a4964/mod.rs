@@ -1,7 +1,7 @@
 //! Allegro A4964 Sensorless Sinusoidal Drive BLDC Controller
 
+pub mod diagnostics;
 pub mod driver;
 pub mod io;
-pub mod regs;
 pub mod readback;
-pub mod diagnostics;
+pub mod regs;

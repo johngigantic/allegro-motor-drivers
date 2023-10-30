@@ -1,8 +1,8 @@
 //! Readback telemetry
 
-use core::ops::{Index, IndexMut};
-use bilge::prelude::*;
 use super::regs::readback::ReadbackSelect;
+use bilge::prelude::*;
+use core::ops::{Index, IndexMut};
 
 #[bitsize(10)]
 #[derive(Copy, Clone, PartialEq, DebugBits, DefaultBits, FromBits)]

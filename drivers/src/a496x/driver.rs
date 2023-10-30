@@ -34,22 +34,22 @@ where
     ///
     /// # Errors
     /// Returns an `AllegroError` if the SPI transaction fails.
-    pub fn read_register(&mut self, register: A4962Reg) -> Result<&Self, AllegroError> {
+    pub fn read_register(&mut self, register: A4962Reg) -> Result<(), AllegroError> {
         let mut message = Self::read_request(register);
         self.spi.transfer_in_place(&mut message)?;
         self.read_response(register, message)?;
-        Ok(self)
+        Ok(())
     }
 
     /// Write to the specified register, and store the returned diagnostics.
     ///
     /// # Errors
     /// Returns an `AllegroError` if the SPI transaction fails.
-    pub fn write_register(&mut self, register: A4962Reg) -> Result<&Self, AllegroError> {
+    pub fn write_register(&mut self, register: A4962Reg) -> Result<(), AllegroError> {
         let mut message = self.write_request(register);
         self.spi.transfer_in_place(&mut message)?;
         self.write_response(message)?;
-        Ok(self)
+        Ok(())
     }
 
     /// Encode a request to read the desired register.
@@ -67,7 +67,7 @@ where
     }
 
     /// Decode the response from a SPI read transaction.
-    /// 
+    ///
     /// # Errors
     /// This function will check for an `AllegroError::MotorFault` and return it
     /// after parsing.
@@ -75,18 +75,22 @@ where
         let response = ReadResponse::from(u16::from_be_bytes(message));
         self.regs[register].set_value(response.register().into());
         self.status.set_header(response.status());
-        if response.status().ff() { return Err(AllegroError::MotorFault) }
+        if response.status().ff() {
+            return Err(AllegroError::MotorFault);
+        }
         Ok(())
     }
 
     /// Decode the response from a SPI write transaction.
-    /// 
+    ///
     /// # Errors
     /// This function will check for an `AllegroError::MotorFault` and return it
     /// after parsing.
     fn write_response(&mut self, message: [u8; 2]) -> Result<(), AllegroError> {
         self.status = WriteResponse::from(u16::from_be_bytes(message));
-        if self.status.header().ff() { return Err(AllegroError::MotorFault) }
+        if self.status.header().ff() {
+            return Err(AllegroError::MotorFault);
+        }
         Ok(())
     }
 }

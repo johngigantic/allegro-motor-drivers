@@ -1,8 +1,8 @@
 //! All diagnostics for the chip
 
-use bilge::prelude::*;
 use crate::a4964::readback::ReadbackDiagnostics;
 use crate::a4964::regs::diagnostic::*;
+use bilge::prelude::*;
 
 #[bitsize(24)]
 #[derive(Clone, Copy, DefaultBits, DebugBits, FromBits)]

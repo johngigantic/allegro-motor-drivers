@@ -61,19 +61,16 @@ where
     }
 
     fn write_request(&self, register: A4964Reg) -> [u8; 2] {
-        let message: u16 = match register {
-            A4964Reg::WriteOnly => {
-                let reg_contents = unsafe { bilge::arbitrary_int::u10::new_unchecked(self.regs[register].value()) };
-                let mut request = WriteOnlyRequest::new(false, reg_contents, register.into());
-                request.set_odd_parity();
-                request.into()
-            },
-            _ => {
-                let reg_contents = unsafe { bilge::arbitrary_int::u9::new_unchecked(self.regs[register].value()) };
-                let mut request = WriteRequest::new(false, reg_contents, true, register.into());
-                request.set_odd_parity();
-                request.into()
-            }
+        let message: u16 = if register == A4964Reg::WriteOnly {
+            let reg_contents = unsafe { bilge::arbitrary_int::u10::new_unchecked(self.regs[register].value()) };
+            let mut request = WriteOnlyRequest::new(false, reg_contents, register.into());
+            request.set_odd_parity();
+            request.into()
+        } else {
+            let reg_contents = unsafe { bilge::arbitrary_int::u9::new_unchecked(self.regs[register].value()) };
+            let mut request = WriteRequest::new(false, reg_contents, true, register.into());
+            request.set_odd_parity();
+            request.into()
         };
         message.to_be_bytes()
     }

@@ -2,6 +2,8 @@
 
 use embedded_hal::spi::SpiDevice;
 
+use crate::error::AllegroError;
+
 use super::{
     io::{Diagnostics, ReadRequest, ReadResponse, WriteRequest, WriteResponse},
     regs::{A4962Reg, A4962Registers},
@@ -17,6 +19,7 @@ pub struct A4962<SPI> {
 impl<SPI> A4962<SPI>
 where
     SPI: SpiDevice,
+    AllegroError: From<SPI::Error>,
 {
     /// Create a driver for the motor controller connected to the SPI bus
     pub fn new(spi: SPI) -> Self {
@@ -30,8 +33,8 @@ where
     /// Read from the specified register, and store the register in the local data copy.
     ///
     /// # Errors
-    /// Returns a `SPI::Error` if the SPI transaction fails.
-    pub fn read_register(&mut self, register: A4962Reg) -> Result<&Self, SPI::Error> {
+    /// Returns an `AllegroError` if the SPI transaction fails.
+    pub fn read_register(&mut self, register: A4962Reg) -> Result<&Self, AllegroError> {
         let mut message = Self::read_request(register);
         self.spi.transfer_in_place(&mut message)?;
         self.read_response(register, message);
@@ -41,8 +44,8 @@ where
     /// Write to the specified register, and store the returned diagnostics.
     ///
     /// # Errors
-    /// Returns a `SPI::Error` if the SPI transaction fails.
-    pub fn write_register(&mut self, register: A4962Reg) -> Result<&Self, SPI::Error> {
+    /// Returns an `AllegroError` if the SPI transaction fails.
+    pub fn write_register(&mut self, register: A4962Reg) -> Result<&Self, AllegroError> {
         let mut message = self.write_request(register);
         self.spi.transfer_in_place(&mut message)?;
         self.write_response(message);

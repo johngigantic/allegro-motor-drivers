@@ -1,6 +1,7 @@
 //! Main Driver for A4910
 
 use embedded_hal::spi::SpiDevice;
+use crate::error::AllegroError;
 
 use super::{
     io::{Diagnostics, ReadRequest, ReadResponse, WriteRequest, WriteResponse},
@@ -15,6 +16,7 @@ pub struct A4910<SPI> {
 impl<SPI> A4910<SPI>
 where
     SPI: SpiDevice,
+    AllegroError: From<SPI::Error>
 {
     /// Create a driver for the motor controller connected to the SPI bus
     pub fn new(spi: SPI) -> Self {
@@ -29,7 +31,7 @@ where
     ///
     /// # Errors
     /// Returns a `SPI::Error` if the SPI transaction fails.
-    pub fn read_register(&mut self, register: A4910Reg) -> Result<&Self, SPI::Error> {
+    pub fn read_register(&mut self, register: A4910Reg) -> Result<&Self, AllegroError> {
         let mut message = Self::read_request(register);
         self.spi.transfer_in_place(&mut message)?;
         self.read_response(register, message);
@@ -40,7 +42,7 @@ where
     ///
     /// # Errors
     /// Returns a `SPI::Error` if the SPI transaction fails.
-    pub fn write_register(&mut self, register: A4910Reg) -> Result<&Self, SPI::Error> {
+    pub fn write_register(&mut self, register: A4910Reg) -> Result<&Self, AllegroError> {
         let mut message = self.write_request(register);
         self.spi.transfer_in_place(&mut message)?;
         self.write_response(message);

@@ -12,7 +12,7 @@ use config::Config;
 use mask::Mask;
 use run::Run;
 
-#[derive(Debug, PartialEq, Clone, Copy)]
+#[derive(Debug, PartialEq, Copy, Clone)]
 pub enum A4910Reg {
     Config0,
     Config1,

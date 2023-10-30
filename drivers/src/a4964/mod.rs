@@ -3,3 +3,5 @@
 pub mod driver;
 pub mod io;
 pub mod regs;
+pub mod readback;
+pub mod diagnostics;

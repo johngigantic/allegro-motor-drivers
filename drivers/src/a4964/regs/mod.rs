@@ -42,7 +42,7 @@ use vds_monitor::VdsMonitor;
 use watchdog::Watchdog;
 use write_only::WriteOnly;
 
-#[derive(Debug, PartialEq, Clone, Copy)]
+#[derive(Debug, PartialEq, Copy, Clone)]
 pub enum A4964Reg {
     Pwm0,
     Pwm1,

@@ -17,7 +17,7 @@ pub struct ReadRequest {
 #[bitsize(16)]
 #[derive(DebugBits, DefaultBits, PartialEq, FromBits, Parity)]
 pub struct ReadResponse {
-    parity: bool,
+    pub(crate) parity: bool,
     pub register: u9,
     write_read: bool,
     pub status: Header,
@@ -26,7 +26,7 @@ pub struct ReadResponse {
 #[bitsize(16)]
 #[derive(DebugBits, DefaultBits, PartialEq, FromBits, Parity)]
 pub struct ReadOnlyResponse {
-    parity: bool,
+    pub(crate) parity: bool,
     pub register: u10,
     pub status: Header,
 }
@@ -56,5 +56,3 @@ pub struct WriteResponse {
     reserved: u1,
     pub header: Header,
 }
-
-pub type Diagnostics = WriteResponse;

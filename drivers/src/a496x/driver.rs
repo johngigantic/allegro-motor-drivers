@@ -37,7 +37,7 @@ where
     pub fn read_register(&mut self, register: A4962Reg) -> Result<&Self, AllegroError> {
         let mut message = Self::read_request(register);
         self.spi.transfer_in_place(&mut message)?;
-        self.read_response(register, message);
+        self.read_response(register, message)?;
         Ok(self)
     }
 
@@ -48,15 +48,17 @@ where
     pub fn write_register(&mut self, register: A4962Reg) -> Result<&Self, AllegroError> {
         let mut message = self.write_request(register);
         self.spi.transfer_in_place(&mut message)?;
-        self.write_response(message);
+        self.write_response(message)?;
         Ok(self)
     }
 
+    /// Encode a request to read the desired register.
     fn read_request(register: A4962Reg) -> [u8; 2] {
         let request: u16 = ReadRequest::new(false, register.into()).into();
         request.to_be_bytes()
     }
 
+    /// Encode a request to write to the desired register.
     fn write_request(&self, register: A4962Reg) -> [u8; 2] {
         let reg_contents =
             unsafe { bilge::arbitrary_int::u12::new_unchecked(self.regs[register].value()) };
@@ -64,13 +66,27 @@ where
         request.to_be_bytes()
     }
 
-    fn read_response(&mut self, register: A4962Reg, message: [u8; 2]) {
+    /// Decode the response from a SPI read transaction.
+    /// 
+    /// # Errors
+    /// This function will check for an `AllegroError::MotorFault` and return it
+    /// after parsing.
+    fn read_response(&mut self, register: A4962Reg, message: [u8; 2]) -> Result<(), AllegroError> {
         let response = ReadResponse::from(u16::from_be_bytes(message));
         self.regs[register].set_value(response.register().into());
         self.status.set_header(response.status());
+        if response.status().ff() { return Err(AllegroError::MotorFault) }
+        Ok(())
     }
 
-    fn write_response(&mut self, message: [u8; 2]) {
+    /// Decode the response from a SPI write transaction.
+    /// 
+    /// # Errors
+    /// This function will check for an `AllegroError::MotorFault` and return it
+    /// after parsing.
+    fn write_response(&mut self, message: [u8; 2]) -> Result<(), AllegroError> {
         self.status = WriteResponse::from(u16::from_be_bytes(message));
+        if self.status.header().ff() { return Err(AllegroError::MotorFault) }
+        Ok(())
     }
 }

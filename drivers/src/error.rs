@@ -1,6 +1,7 @@
 //! Error types
 
 #[allow(clippy::module_name_repetitions)]
+#[derive(Debug, Clone, Copy, PartialEq)]
 pub enum AllegroError {
     SpiError(embedded_hal::spi::ErrorKind),
     InvalidParity,

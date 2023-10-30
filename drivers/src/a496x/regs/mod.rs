@@ -15,7 +15,7 @@ use run::Run;
 pub type A4963Reg = A4962Reg;
 pub type A4963Registers = A4962Registers;
 
-#[derive(Debug, PartialEq, Clone, Copy)]
+#[derive(Debug, PartialEq, Copy, Clone)]
 pub enum A4962Reg {
     Config0,
     Config1,

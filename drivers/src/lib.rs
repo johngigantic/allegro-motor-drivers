@@ -6,11 +6,6 @@ pub mod a4910;
 pub mod a4964;
 pub mod a496x;
 
-pub mod amt49100;
-pub mod amt49101;
-pub mod amt49106;
-pub mod amt49107;
-
 pub mod error;
 pub mod io;
 pub mod regs;

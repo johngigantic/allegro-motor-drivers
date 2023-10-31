@@ -5,16 +5,11 @@ authors = ["John Little"]
 edition = "2021"
 rust-version = "1.65.0"
 description = "Derive macros for Allegro motor driver registers"
-# documentation = "https://docs.rs/allegro-motor-derive"
-# readme = false
-# homepage = ""
+documentation = "https://docs.rs/allegro-motor-derive"
 repository = "https://github.com/johngigantic/allegro-motor-drivers"
 license = "MIT"
 keywords = ["no-std", "embedded", "derive", "hardware"]
 categories = ["no-std", "embedded", "hardware-support", "science::robotics"]
-# workspace = ".."
-# include = [""]
-# publish = false
 
 [lib]
 proc-macro = true

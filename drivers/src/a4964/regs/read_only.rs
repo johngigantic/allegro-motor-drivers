@@ -4,7 +4,7 @@ use allegro_motor_derive::AllegroRegister;
 use bilge::prelude::*;
 
 #[bitsize(10)]
-#[derive(DebugBits, PartialEq, PartialOrd, DefaultBits, FromBits, Clone, Copy)]
+#[derive(DebugBits, PartialEq, DefaultBits, FromBits, Copy, Clone)]
 pub struct DiagnosticRegister {
     pub osr: bool,
     pub ba: bool,

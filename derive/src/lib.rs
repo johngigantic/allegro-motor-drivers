@@ -54,7 +54,7 @@ pub fn allegro_derive(item: TokenStream) -> TokenStream {
 
     quote! {
         impl crate::regs::AllegroRegister for #ident {
-            fn get_value(&self) -> u16 {
+            fn value(&self) -> u16 {
                 self.value.into()
             }
 
@@ -83,4 +83,29 @@ fn analyze_bitsize(attrs: &[syn::Attribute]) -> Result<u16, syn::Error> {
             "'bitsize' not found in object attributes.",
         )),
     }
+}
+
+/// Derive macro to implement the `Parity` trait.
+///
+/// See the [original trait][trait] for examples and complete documentation.
+///
+/// [trait]: ../allegro_motor_drivers/regs/trait.AllegroRegister.html
+
+#[proc_macro_derive(Parity)]
+pub fn parity_derive(item: TokenStream) -> TokenStream {
+    let DeriveInput {
+        ident, generics, ..
+    } = parse_macro_input!(item as DeriveInput);
+    let (impl_generics, type_generics, where_clause) = generics.split_for_impl();
+
+    quote! {
+        impl #impl_generics crate::io::Parity for #ident #type_generics #where_clause {
+            fn set_odd_parity(&mut self) {
+                let calculated_parity = crate::io::parity(self.value);
+                let next_parity = !(self.parity() ^ calculated_parity);
+                self.set_parity(next_parity);
+            }
+        }
+    }
+    .into()
 }

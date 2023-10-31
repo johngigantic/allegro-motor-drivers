@@ -16,7 +16,7 @@ impl Default for DetectionWindow {
 }
 
 #[bitsize(2)]
-#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum SamplesPerCycle {
     #[default]
     Samples1,
@@ -26,7 +26,7 @@ pub enum SamplesPerCycle {
 }
 
 #[bitsize(4)]
-#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum WindmillBemfFilterTime {
     Time0,
     #[default]

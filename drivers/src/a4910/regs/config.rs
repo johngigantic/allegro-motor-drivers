@@ -28,7 +28,7 @@ impl Default for DeadTime {
 }
 
 #[bitsize(1)]
-#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum CurrentSenseBandwidth {
     ReducedBandwidth,
     #[default]
@@ -36,7 +36,7 @@ pub enum CurrentSenseBandwidth {
 }
 
 #[bitsize(1)]
-#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum StopOnFault {
     Disabled,
     #[default]
@@ -44,7 +44,7 @@ pub enum StopOnFault {
 }
 
 #[bitsize(2)]
-#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum DiagOutput {
     #[default]
     GeneralFault,
@@ -54,7 +54,7 @@ pub enum DiagOutput {
 }
 
 #[bitsize(1)]
-#[derive(Copy, Clone, Debug, PartialEq, Default, FromBits)]
+#[derive(Debug, PartialEq, Copy, Clone, Default, FromBits)]
 pub enum DisableBootstrapManagement {
     #[default]
     Active,

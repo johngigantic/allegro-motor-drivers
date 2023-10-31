@@ -8,7 +8,7 @@ use super::regs::diagnostic::{Data, Header};
 #[bitsize(16)]
 #[derive(DebugBits, DefaultBits, PartialEq, FromBits, Parity)]
 pub struct ReadRequest {
-    parity: bool,
+    pub(crate) parity: bool,
     reserved: u9,
     write_read: bool,
     address: u5,
